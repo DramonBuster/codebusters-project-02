@@ -28,10 +28,8 @@ function onModalOpen(evt) {
   modal.classList.remove('is-hidden');
   body.classList.add('modal-open');
 
-  // console.log(btnCloseModal);
-
-  modal.addEventListener('click', evt => {
-    if (modal.classList.contains('modal')) {
+  backdrop.addEventListener('click', evt => {
+    if (!evt.target.classList.contains('backdrop')) {
       return;
     }
     onModalClose(evt);
@@ -43,12 +41,6 @@ function onModalOpen(evt) {
       onModalClose(evt);
     }
   });
-
-  // const btnCloseModal = document.querySelector('.button-close');
-  // btnCloseModal.addEventListener('click', onModalClose);
-
-  // const watchedBtn = document.querySelector('.modal__button');
-  // console.log(watchedBtn);
 }
 
 function onGetFilms(evt) {
@@ -80,6 +72,9 @@ function onModalMakeCard(openedFilm) {
 
   const btnWached = document.querySelector('.watched');
 
+  const btnModalClose = document.querySelector('.button-close');
+  btnModalClose.addEventListener('click', onModalClose);
+
   btnWached.addEventListener('click', () => {
     console.log('слушатель событий на Вотчт');
   });
@@ -90,10 +85,10 @@ function onWached() {
 }
 
 function onModalClose(evt) {
-  console.log(evt.code);
-  console.log(evt.target);
-  console.log(evt.currentTarget);
-  console.log(evt.target.classList.contains('backdrop'));
+  // console.log(evt.code);
+  // console.log(evt.target);
+  // console.log(evt.currentTarget);
+  // console.log(evt.target.classList.contains('backdrop'));
 
   backdrop.classList.add('is-hidden');
   modal.classList.add('is-hidden');
