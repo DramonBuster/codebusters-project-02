@@ -54,7 +54,6 @@ export default getFilms;
 // //функция запроса - асинхронный код
 // async function getFilms(queryParams) {
 //     let url = BASE_URL + queryParams;
-
 //     try {
 //         const response = await axios.get(url);
 //         const data = response.data;
@@ -99,7 +98,6 @@ export default getFilms;
 // async function getPopularFilms() {
 //     const QUERY_PARAMS = trending/all/week?api_key=${API_KEY};
 //     let url = BASE_URL + QUERY_PARAMS;
-
 //     try {
 //         const response = await axios.get(url);
 //         const data = response.data;
