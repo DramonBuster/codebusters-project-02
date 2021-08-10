@@ -55,16 +55,19 @@ body.modal-open {
 
 .backdrop {
   position: fixed;
-
   top: 0;
-  left: 0;
+  // left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   width: 100%;
   height: 100%;
 
   background-color: rgba(0, 0, 0, 0.5);
-
   transition: opacity 500ms $timing-fn;
-  overflow-y: scroll;
+  // overflow-y: scroll;
 
   z-index: 1;
 
@@ -93,11 +96,11 @@ body.modal-open {
 
 .modal {
   position: absolute;
-  z-index: 999;
+  z-index: 1000;
 
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
 
   min-width: 280px;
   min-height: 958px;
@@ -135,8 +138,9 @@ body.modal-open {
   }
 }
 .modal__info {
-  //   display: flex;
-  //   flex-direction: column;
+  // position: absolute;
+  // display: flex;
+  // flex-direction: column;
 }
 
 .modal__thumb {

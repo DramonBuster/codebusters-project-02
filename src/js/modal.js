@@ -10,7 +10,6 @@ const cards = document.querySelector('.film-card__list');
 const cardsArray = document.querySelectorAll('.film-card__item');
 const backdrop = document.querySelector('.backdrop');
 const modal = document.querySelector('.modal');
-const btnCloseModal = document.querySelector('.button-close--size');
 const body = document.querySelector('body');
 
 // Работа с модальным окном - открытие и закрытие
@@ -23,6 +22,36 @@ function onModalOpen(evt) {
     return;
   }
 
+  onGetFilms(evt);
+
+  backdrop.classList.remove('is-hidden');
+  modal.classList.remove('is-hidden');
+  body.classList.add('modal-open');
+
+  // console.log(btnCloseModal);
+
+  modal.addEventListener('click', evt => {
+    if (modal.classList.contains('modal')) {
+      return;
+    }
+    onModalClose(evt);
+  });
+
+  window.addEventListener('keydown', evt => {
+    console.log(evt.code);
+    if (evt.code === 'Escape') {
+      onModalClose(evt);
+    }
+  });
+
+  // const btnCloseModal = document.querySelector('.button-close');
+  // btnCloseModal.addEventListener('click', onModalClose);
+
+  // const watchedBtn = document.querySelector('.modal__button');
+  // console.log(watchedBtn);
+}
+
+function onGetFilms(evt) {
   getFilms()
     .then(data => {
       return data.results;
@@ -31,47 +60,40 @@ function onModalOpen(evt) {
       const openedFilm = films.find(film => film.title === evt.target.alt);
 
       onModalMakeCard(openedFilm);
+      return;
     })
     .catch(error => console.log(error));
-
-  // модалка открыается пока только при нажатии на картинку
-
-  backdrop.classList.remove('is-hidden');
-  modal.classList.remove('is-hidden');
-  body.classList.add('modal-open');
-
-  backdrop.addEventListener('click', onModalClose);
-  window.addEventListener('keydown', onModalClose);
 }
 
 function onModalMakeCard(openedFilm) {
-  //   console.log('делаю отрисовку карточки');
-  //   console.log(genres);
-  //   console.log(openedFilm.genre_ids);
-
-  //   genres.forEach(genre => {
-  //     console.log();
-  //   });
-
   const filteredGenres = genres.filter(genre => {
-    // console.log(genre.id);
-    // console.log(openedFilm.genre_ids);
     return openedFilm.genre_ids.includes(genre.id);
   });
 
   const nedenGenres = filteredGenres.map(genre => genre.name).join(', ');
 
   openedFilm.genre_ids = nedenGenres;
-  console.log(openedFilm.genre_ids);
   openedFilm.poster_path = URL + openedFilm.poster_path;
   const modalCard = modalFilm(openedFilm);
-  modal.innerHTML = modalCard;
+
+  modal.insertAdjacentHTML('afterbegin', modalCard);
+
+  const btnWached = document.querySelector('.watched');
+
+  btnWached.addEventListener('click', () => {
+    console.log('слушатель событий на Вотчт');
+  });
+}
+
+function onWached() {
+  console.log('составляю базу просмотренных фильмов');
 }
 
 function onModalClose(evt) {
-  console.log(evt.target.code);
+  console.log(evt.code);
   console.log(evt.target);
   console.log(evt.currentTarget);
+  console.log(evt.target.classList.contains('backdrop'));
 
   backdrop.classList.add('is-hidden');
   modal.classList.add('is-hidden');
