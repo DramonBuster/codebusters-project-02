@@ -324,6 +324,9 @@ body.modal-open {
 /*кнопка закрытия модального окна*/
 .button-close {
   position: absolute;
+
+  // z-index: 10000;
+
   top: 10px;
   right: 10px;
   cursor: pointer;
