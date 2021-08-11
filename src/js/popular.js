@@ -35,7 +35,7 @@ function showPopularFilm(queryParams) {
 
 showPopularFilm(queryParams);
 
-
+export default showPopularFilm;
 
 
 // /**

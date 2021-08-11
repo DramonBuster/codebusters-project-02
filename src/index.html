@@ -17,7 +17,48 @@
     />
   </head>
   <body>
+    
     <include src="./partials/header.html"></include>
+    <div class="filter">
+      <div>
+        <select id="selcolor" class="selector">
+    
+          <option value="Action">Action</option>
+    
+          <option value="Adventure">Adventure</option>
+    
+          <option value="Animation">Animation</option>
+    
+          <option value="Comedy">Comedy</option>
+    
+          <option value="Crime">Crime</option>
+    
+          <option value="Documentary">Documentary</option>
+    
+        </select>
+      </div>
+      <div class="filter2">
+        <div class="year">
+          <p class="year-text">Год выпуска</p>
+          <svg class="year-arrow js-year-arrow-top">
+            <use class="year-arrow-icon" href="./images/icons.svg#icon-arrowTop"></use>
+          </svg>
+          <svg class="year-arrow js-year-arrow-down">
+            <use class="year-arrow-icon" href="./images/icons.svg#icon-arrowDown"></use>
+          </svg>
+        </div>
+        <div class="vote">
+          <p class="vote-text">Рейтинг</p>
+          <svg class="year-arrow js-vote-arrow-down">
+            <use class="year-arrow-icon" href="./images/icons.svg#icon-arrowTop"></use>
+          </svg>
+          <svg class="year-arrow js-vote-arrow-top">
+            <use class="year-arrow-icon" href="./images/icons.svg#icon-arrowDown"></use>
+          </svg>
+        </div>
+    
+      </div>
+    </div>
     <include src="./partials/gallery.html"></include>
     <include src="./partials/modal.html"></include>
     <include src="./partials/footer.html"></include>

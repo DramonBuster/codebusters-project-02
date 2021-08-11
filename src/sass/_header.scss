@@ -277,3 +277,51 @@
     }
   }
 }
+
+.year {
+  display: flex;
+  align-items: center;
+  //margin-top: 20px;
+}
+.year-text {
+  color: #ffffff;
+}
+
+.vote {
+  //margin-top: 20px;
+  display: flex;
+  align-items: center;
+}
+.vote-text {
+  color: #ffffff;
+}
+
+.year-arrow {
+  // position: absolute;
+  fill: #ffffff;
+  // top: 10px;
+  // right: 10px;
+  cursor: pointer;
+
+  padding: 0;
+  width: 30px;
+  height: 30px;
+}
+
+.year-arrow-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  // margin-top: 20px;
+  background-color: grey;
+}
+.filter2 {
+  display: flex;
+}
+.selector {
+  height: 20px;
+}
