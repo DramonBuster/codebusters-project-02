@@ -138,6 +138,7 @@ body.modal-open {
   }
 }
 .modal__info {
+  position: relative;
   // position: absolute;
   // display: flex;
   // flex-direction: column;
@@ -348,6 +349,29 @@ body.modal-open {
   //     width: 30px;
   //     height: 30px;
   //   }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 6px;
+    right: 14px;
+    width: 0px;
+    height: 18px;
+
+    transform: rotate(-45deg);
+    border-right: 2px solid #000000;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 14px;
+    width: 0px;
+    height: 18px;
+
+    transform: rotate(45deg);
+    border-right: 2px solid #000000;
+  }
 
   &:hover {
     color: #ff6b01;
