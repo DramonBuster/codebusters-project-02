@@ -39,7 +39,7 @@ function onModalOpen(evt) {
   });
 
   window.addEventListener('keydown', evt => {
-    console.log(evt.code);
+    // console.log(evt.code);
     if (evt.code === 'Escape') {
       onModalClose(evt);
     }
@@ -95,7 +95,6 @@ function onModalMakeCard(openedFilm) {
 
 function onCheckLocalStorage(openedFilm) {
   if (localStorage.length === 0 || localStorage.getItem(LOCALSTORAGE_KEY) === '[]') {
-    console.log('ЛС Пустой или там пустой массив');
     return;
   }
 
