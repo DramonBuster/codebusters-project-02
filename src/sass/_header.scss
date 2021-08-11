@@ -315,13 +315,17 @@
 
 .filter {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   // margin-top: 20px;
-  background-color: grey;
 }
 .filter2 {
   display: flex;
 }
 .selector {
+  margin-top: 5px;
+  margin-right: 10px;
   height: 20px;
+}
+.filter-color {
+  background-color: grey;
 }
