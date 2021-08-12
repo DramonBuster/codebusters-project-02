@@ -1,5 +1,5 @@
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
+// import 'tui-pagination/dist/tui-pagination.css';
 
 import FilmsApiService from './api-service';
 import appendGalleryMarkup from './drow-marckup';
@@ -26,7 +26,7 @@ function showPopularFilm() {
     filmsApiService.getFilms(queryParams).then(films => {
         const totalResult = films.results;
         const pages = films.total_pages;
-        console.log(totalResult, `всего страниц для пагинации`)
+        console.log(totalResult, `всего страниц для пагинации`);
         appendGalleryMarkup(totalResult);
  }).catch(error => console.log(error))
 }
@@ -73,8 +73,8 @@ function createGallery(queryCards) {
 
 // Добавляет кнопки пагинации из библиотеки
 
-let total = filmsApiService.getFilms.totalResults;
-console.log(total);
+// let total = filmsApiService.getFilms.totalResults;
+// console.log(total);
 
 const options = {
     totalItems: 20000,
@@ -127,7 +127,6 @@ const options = {
     if (input !== document.activeElement) {
       filmsApiService.newPage(page);
       showPopularFilm();
-    } else {
       filmsApiService.resetPage();
       filmsApiService.newPage(page);
       fetchFilms();
