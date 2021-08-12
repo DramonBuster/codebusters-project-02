@@ -1,16 +1,16 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
 
-let localStr = [];
 let btnWached;
-let idForAddRemoveFilmFromLocalStorage;
+let btnQueue;
 
 const cards = document.querySelector('.film-card__list');
 const cardsArray = document.querySelectorAll('.film-card__item');
 const backdrop = document.querySelector('.backdrop');
 const modal = document.querySelector('.modal');
 const body = document.querySelector('body');
-const LOCALSTORAGE_KEY = 'watched';
+const LOCALSTORAGE_WATCHED = 'watched';
+const LOCALSTORAGE_QUEUE = 'queue';
 
 // Работа с модальным окном - открытие и закрытие
 cards.addEventListener('click', onModalOpen);
@@ -36,9 +36,7 @@ function onModalOpen(evt) {
   });
 
   window.addEventListener('keydown', evt => {
-    if (evt.code === 'Escape') {
-      onModalClose(evt);
-    }
+    if (evt.code === 'Escape') onModalClose(evt);
   });
 }
 
@@ -58,25 +56,28 @@ function onModalMakeCard(openedFilm) {
   modal.insertAdjacentHTML('afterbegin', modalCard);
 
   btnWached = document.querySelector('.watched');
+  btnQueue = document.querySelector('.queue');
 
   const btnModalClose = document.querySelector('.button-close');
   btnModalClose.addEventListener('click', onModalClose);
 
   //пробные данные для ЛС
   // localStr.push(openedFilm);
-  // localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(localStr));
+  // localStorage.setItem(LOCALSTORAGE_WATCHED, JSON.stringify(localStr));
 
-  // проверяем на наличие данных в ЛС
-  idForAddRemoveFilmFromLocalStorage = openedFilm.id;
   onCheckLocalStorage(openedFilm);
 
   btnWached.addEventListener('click', evt => {
     onAddRemoveWached(evt, openedFilm);
   });
+
+  btnQueue.addEventListener('click', evt => {
+    onAddRemoveQueue(evt, openedFilm);
+  });
 }
 
 function onCheckLocalStorage(openedFilm) {
-  if (localStorage.length === 0 || localStorage.getItem(LOCALSTORAGE_KEY) === '[]') {
+  if (localStorage.length === 0 || localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]') {
     return;
   }
 
@@ -84,9 +85,7 @@ function onCheckLocalStorage(openedFilm) {
 }
 
 function onSearchFilmInLocalStorage(openedFilm) {
-  // console.log(openedFilm.id);
-
-  const savedWachedFilms = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+  const savedWachedFilms = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
   savedWachedFilms.forEach(savedWachedFilm => {
     if (openedFilm.id !== Number(savedWachedFilm.id)) {
@@ -102,24 +101,60 @@ function onAddRemoveWached(evt, openedFilm) {
     btnWached.textContent = 'add to watched';
     btnWached.dataset.action = 'add';
 
-    const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+    const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
     const modifiedSavedFilms = filmsFromLocalStorage.filter(
-      filmFromLocalStorage => filmFromLocalStorage.id !== idForAddRemoveFilmFromLocalStorage,
+      filmFromLocalStorage => filmFromLocalStorage.id !== openedFilm.id,
     );
 
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(modifiedSavedFilms));
+    localStorage.setItem(LOCALSTORAGE_WATCHED, JSON.stringify(modifiedSavedFilms));
 
     // onRemoveFilmFromLocalStorage(); Вынести удаление в отдельную функцию? как в конспекте
   } else {
     btnWached.textContent = 'remove from watched';
     btnWached.dataset.action = 'remove';
 
-    const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_KEY));
+    if (localStorage.getItem(LOCALSTORAGE_WATCHED) === null) {
+      localStorage.setItem(LOCALSTORAGE_WATCHED, JSON.stringify([openedFilm]));
+    } else {
+      const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
-    filmsFromLocalStorage.push(openedFilm);
+      filmsFromLocalStorage.push(openedFilm);
 
-    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(filmsFromLocalStorage));
+      localStorage.setItem(LOCALSTORAGE_WATCHED, JSON.stringify(filmsFromLocalStorage));
+    }
+
+    // onAddFilmToLocalStorage(); вынести добавление в отдельную функцию?
+  }
+}
+
+function onAddRemoveQueue(evt, openedFilm) {
+  if (evt.target.dataset.action === 'remove') {
+    btnQueue.textContent = 'add to queue';
+    btnQueue.dataset.action = 'add';
+
+    const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
+
+    const modifiedSavedFilms = filmsFromLocalStorage.filter(
+      filmFromLocalStorage => filmFromLocalStorage.id !== openedFilm.id,
+    );
+
+    localStorage.setItem(LOCALSTORAGE_QUEUE, JSON.stringify(modifiedSavedFilms));
+
+    // onRemoveFilmFromLocalStorage(); Вынести удаление в отдельную функцию? как в конспекте
+  } else {
+    btnQueue.textContent = 'remove from queue';
+    btnQueue.dataset.action = 'remove';
+
+    if (localStorage.getItem(LOCALSTORAGE_QUEUE) === null) {
+      localStorage.setItem(LOCALSTORAGE_QUEUE, JSON.stringify([openedFilm]));
+    } else {
+      const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
+
+      filmsFromLocalStorage.push(openedFilm);
+
+      localStorage.setItem(LOCALSTORAGE_QUEUE, JSON.stringify(filmsFromLocalStorage));
+    }
 
     // onAddFilmToLocalStorage(); вынести добавление в отдельную функцию?
   }
