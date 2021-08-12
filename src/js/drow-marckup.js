@@ -20,7 +20,7 @@ function filterGalleryProperty(filmResult) {
        
         filterForRealese(film)
        
-       console.log(film, `object`)
+      
         
     //    console.log(newGenres)
     
@@ -39,7 +39,7 @@ function filterForPosters(film) {
         //    film.poster_path = `https://www.begindot.com/wp-content/uploads/2019/01/Best-Coming-Soon-HTML-Templates.jpg`;
         //   film.poster_path = `https://i.ibb.co/5KRPDGk/viber-2021-08-12-14-52-03-837.jpg`;
           film.poster_path = `https://i.ibb.co/HxmtdsL/viber-2021-08-12-15-51-44-146.jpg`
-            console.log(`ooops`)
+            
        } else {
             film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`
        }
