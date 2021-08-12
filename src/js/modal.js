@@ -1,6 +1,7 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
 import cardForFilm from '../templates/film-card.hbs';
+import appendGalleryMarkup from './drow-marckup'
 
 let btnWached;
 let btnQueue;
@@ -59,6 +60,7 @@ function onGetFilm(evt) {
 }
 
 function onModalMakeCard(openedFilm) {
+  // console.log('operd', openedFilm)
   openedFilm.genres = openedFilm.genres.map(genre => genre.name).join(', ');
 
   const modalCard = modalFilm(openedFilm);
@@ -107,6 +109,7 @@ function onSearchFilmInLocalStorageForChangeButtons(openedFilm) {
       if (openedFilm.id !== Number(savedWachedFilm.id)) {
         return;
       }
+     
       btnWached.textContent = 'remove from watched';
       btnWached.dataset.action = 'remove';
     });
@@ -234,9 +237,20 @@ function onMadeWatchedGallery() {
   }
 
   console.log('отрисовываем ЛИБ ВОТЧД');
-  cardList.innerHTML = '';
+  // cardList.innerHTML = '';
   const savedWatchedFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
+  /**
+   * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
+   */
+  const a = savedWatchedFilmsInLocalStorage.map(film => {
+    film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
+
+    console.log(film, `gjhvjhv`)
+    
+  })
+  console.log(a, `wowwo`)
+  // appendGalleryMarkup(savedWatchedFilmsInLocalStorage);
   cardList.innerHTML = cardForFilm(savedWatchedFilmsInLocalStorage);
 }
 
@@ -251,7 +265,20 @@ function onMadeQueueGallery() {
   }
 
   cardList.innerHTML = '';
-
+  
   const savedQueueFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
+    /**
+   * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
+   */
+  const a = savedQueueFilmsInLocalStorage.map(film => {
+    film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
+
+    console.log(film, `gjhvjhv`)
+    
+  })
+  console.log(a, `wowwo`)
+  /**\
+   * КОНЕЦ ВРЕМЕННОГО РЕШЕНИЯ
+   */
   cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
 }
