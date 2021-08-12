@@ -10,25 +10,41 @@ import appendGalleryMarkup from './drow-marckup'
 
 const logoLink = document.querySelector('.logo__link')
 const buttonHome = document.querySelector('.page-header__btn')
+const header = document.querySelector('.page-header')
+const form = document.querySelector('.form')
+const libraryNav = document.querySelector('.library-nav')
+const btnMyLibrary = document.querySelector('.library');
+const btnHome = document.querySelector('.home');
+
  let queryParams = `trending/movie/week?api_key=27c4b211807350ab60580c41abf1bb8c`;
 
 //слушатель на кнопке
 buttonHome.addEventListener('click', () => {
-    showPopularFilm(queryParams)
+    showPopularFilm(queryParams);
+    changeMainThemeHeader();
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', () => {
      showPopularFilm(queryParams)
+     changeMainThemeHeader();
  })
 
 function showPopularFilm(queryParams) {
-   
+    changeMainThemeHeader();
     getFilms(queryParams).then(films => {
         const totalResult = films.results;
         const pages = films.total_pages;
         console.log(pages, `всего страниц для пагинации`)
         appendGalleryMarkup(totalResult)
  }).catch(error => console.log(error))
+}
+
+function changeMainThemeHeader() {
+    header.classList.remove('library-header');
+    libraryNav.classList.add('is-hidden');
+    form.classList.remove('is-hidden');
+    btnMyLibrary.classList.remove('current');
+    btnHome.classList.add('current');
 }
 
 
