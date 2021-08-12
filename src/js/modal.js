@@ -1,5 +1,6 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
+import cardForFilm from '../templates/film-card.hbs';
 
 let btnWached;
 let btnQueue;
@@ -12,6 +13,15 @@ const body = document.querySelector('body');
 const LOCALSTORAGE_WATCHED = 'watched';
 const LOCALSTORAGE_QUEUE = 'queue';
 
+// Запуск библиотеки по кнопке MY LIBRUARY
+const btnMyLibrary = document.querySelector('.library');
+const cardList = document.querySelector('.film-card__list');
+const libButtons = document.querySelector('.library-nav');
+const form = document.querySelector('.form');
+
+const btnWatchedInHeader = document.querySelector('button[data-info="watched"]');
+const btnQueueInHeader = document.querySelector('button[data-info="queue"]');
+
 // Работа с модальным окном - открытие и закрытие
 cards.addEventListener('click', onModalOpen);
 
@@ -22,7 +32,7 @@ function onModalOpen(evt) {
     return;
   }
 
-  onGetFilms(evt);
+  onGetFilm(evt);
 
   backdrop.classList.remove('is-hidden');
   modal.classList.remove('is-hidden');
@@ -40,7 +50,7 @@ function onModalOpen(evt) {
   });
 }
 
-function onGetFilms(evt) {
+function onGetFilm(evt) {
   let queryParams = `movie/${evt.target.dataset.id}?api_key=27c4b211807350ab60580c41abf1bb8c&language=en-US`;
 
   getFilms(queryParams)
@@ -77,23 +87,40 @@ function onModalMakeCard(openedFilm) {
 }
 
 function onCheckLocalStorage(openedFilm) {
-  if (localStorage.length === 0 || localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]') {
+  if (
+    localStorage.length === 0 ||
+    localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]' ||
+    localStorage.getItem(LOCALSTORAGE_QUEUE) === '[]'
+  ) {
     return;
   }
 
-  onSearchFilmInLocalStorage(openedFilm);
+  onSearchFilmInLocalStorageForChangeButtons(openedFilm);
 }
 
-function onSearchFilmInLocalStorage(openedFilm) {
+function onSearchFilmInLocalStorageForChangeButtons(openedFilm) {
   const savedWachedFilms = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
+  const savedQueueFilms = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
-  savedWachedFilms.forEach(savedWachedFilm => {
-    if (openedFilm.id !== Number(savedWachedFilm.id)) {
-      return;
-    }
-    btnWached.textContent = 'remove from watched';
-    btnWached.dataset.action = 'remove';
-  });
+  if (localStorage.getItem(LOCALSTORAGE_WATCHED) !== null) {
+    savedWachedFilms.forEach(savedWachedFilm => {
+      if (openedFilm.id !== Number(savedWachedFilm.id)) {
+        return;
+      }
+      btnWached.textContent = 'remove from watched';
+      btnWached.dataset.action = 'remove';
+    });
+  }
+
+  if (localStorage.getItem(LOCALSTORAGE_QUEUE) !== null) {
+    savedQueueFilms.forEach(savedQueueFilm => {
+      if (openedFilm.id !== Number(savedQueueFilm.id)) {
+        return;
+      }
+      btnQueue.textContent = 'remove from queue';
+      btnQueue.dataset.action = 'remove';
+    });
+  }
 }
 
 function onAddRemoveWached(evt, openedFilm) {
@@ -178,7 +205,50 @@ function onModalClose(evt) {
   modal.classList.add('is-hidden');
   body.classList.remove('modal-open');
 
+  // libButtons.classList.add('is-hidden');
+  // form.classList.remove('is-hidden');
+
   modal.innerHTML = '';
 }
 
-// Заполение модального окна нужным контентом
+btnMyLibrary.addEventListener('click', evt => {
+  // По нажатию кнопки МАЙ ЛИБ скрываем или открываем нужные элементы хедера
+  libButtons.classList.remove('is-hidden');
+  form.classList.add('is-hidden');
+
+  // const queueFilmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
+
+  // Вешаем слушателей на кнопки и запускаем функцию отрисовки новой галереи
+  btnWatchedInHeader.addEventListener('click', onmakeWatchedGallery);
+  btnQueueInHeader.addEventListener('click', onmakeQueueGallery);
+});
+
+function onmakeWatchedGallery() {
+  console.log('отрисовываем ЛИБ ВОТЧД');
+  cardList.innerHTML = '';
+  const savedWatchedFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
+
+  cardList.innerHTML = cardForFilm(savedWatchedFilmsInLocalStorage);
+}
+
+function onmakeQueueGallery() {
+  console.log();
+  cardList.innerHTML = '';
+
+  const savedQueueFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
+  cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
+}
+// Вешаем слушателя событий на кнопки
+// btnsInHeader.addEventListener('click', evt => {
+//   console.log('Проверка кнопок');
+//   if ((evt.target.dataset.info = 'watched')) {
+//     console.log('кнопка ВОТЧД');
+//     console.log(evt.target.dataset.info);
+//   } else if ((evt.target.dataset.info = 'queue')) {
+//     console.log('кнопка КУЕЕЕЕКУКУК');
+//     console.log(evt.target.dataset.info);
+//   }
+// });
+
+// cardForFilm
+// cardList.innerHTML = cardForFilm(queueFilmsFromLocalStorage);
