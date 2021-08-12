@@ -219,11 +219,20 @@ btnMyLibrary.addEventListener('click', evt => {
   // const queueFilmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
   // Вешаем слушателей на кнопки и запускаем функцию отрисовки новой галереи
-  btnWatchedInHeader.addEventListener('click', onmakeWatchedGallery);
-  btnQueueInHeader.addEventListener('click', onmakeQueueGallery);
+  btnWatchedInHeader.addEventListener('click', onMadeWatchedGallery);
+  btnQueueInHeader.addEventListener('click', onMadeQueueGallery);
 });
 
-function onmakeWatchedGallery() {
+function onMadeWatchedGallery() {
+  if (
+    localStorage.getItem(LOCALSTORAGE_WATCHED) === null ||
+    JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]')
+  ) {
+    // Нужно добавить красивое сообщение
+    console.log('БИБЛИОТЕКА ВАТЧД ПУСТКАЯ!! НУЖНО ВЫБРАТЬ ФИЛЬМЫ');
+    return;
+  }
+
   console.log('отрисовываем ЛИБ ВОТЧД');
   cardList.innerHTML = '';
   const savedWatchedFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
@@ -231,24 +240,18 @@ function onmakeWatchedGallery() {
   cardList.innerHTML = cardForFilm(savedWatchedFilmsInLocalStorage);
 }
 
-function onmakeQueueGallery() {
-  console.log();
+function onMadeQueueGallery() {
+  if (
+    localStorage.getItem(LOCALSTORAGE_QUEUE) === null ||
+    JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE) === '[]')
+  ) {
+    // Нужно добавить красивое сообщение
+    console.log('БИБЛИОТЕКА КУКУ ПУСТКАЯ!! НУЖНО ВЫБРАТЬ ФИЛЬМЫ');
+    return;
+  }
+
   cardList.innerHTML = '';
 
   const savedQueueFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
   cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
 }
-// Вешаем слушателя событий на кнопки
-// btnsInHeader.addEventListener('click', evt => {
-//   console.log('Проверка кнопок');
-//   if ((evt.target.dataset.info = 'watched')) {
-//     console.log('кнопка ВОТЧД');
-//     console.log(evt.target.dataset.info);
-//   } else if ((evt.target.dataset.info = 'queue')) {
-//     console.log('кнопка КУЕЕЕЕКУКУК');
-//     console.log(evt.target.dataset.info);
-//   }
-// });
-
-// cardForFilm
-// cardList.innerHTML = cardForFilm(queueFilmsFromLocalStorage);
