@@ -91,6 +91,8 @@ a {
 .film-card__item {
   width: 280px;
   cursor: pointer;
+  transform: scale(1);
+  transition: transform 0.25s linear;
   @media screen and (min-width: 768px) {
     width: 293px;
     flex-basis: calc(100% / 2 - 30px);
@@ -106,6 +108,9 @@ a {
 }
 .film-card__link {
   cursor: pointer;
+}
+.film-card__item:hover {
+  transform: scale(1.03);
 }
 .film-card__img {
   width: 100%;
