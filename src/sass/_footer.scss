@@ -41,7 +41,6 @@ body {
 }
 
 .footer {
-  position: relative;
   margin-left: auto;
   margin-right: auto;
 
@@ -86,6 +85,7 @@ body {
 }
 
 .footer__item {
+  position: relative;
   margin-right: 11px;
 
   &::after {
