@@ -76,9 +76,7 @@ export default class FilmsApiService {
         
         // console.log(this.queryParams)
         this.querySearch = newQuery;
-    
-        console.log(this.url)
-    }
+        }
 
     newPage(currentPage) {  
         this.page = currentPage;

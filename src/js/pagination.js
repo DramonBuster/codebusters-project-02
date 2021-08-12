@@ -6,7 +6,7 @@ import appendGalleryMarkup from './drow-marckup';
 
 const filmsApiService = new FilmsApiService();
 
-filmsApiService.getFilms();
+// filmsApiService.getFilms();
 
 // Отрисовка популярных фильмов
 
@@ -16,13 +16,13 @@ const buttonHome = document.querySelector('.page-header__btn')
 
 //слушатель на кнопке
 buttonHome.addEventListener('click', () => {
-    showPopularFilm(queryParams)
+    showPopularFilm(queryParams);
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', showPopularFilm)
 
 function showPopularFilm() {
-   
+    
     filmsApiService.getFilms(queryParams).then(films => {
         const totalResult = films.results;
         const pages = films.total_pages;
@@ -31,7 +31,7 @@ function showPopularFilm() {
  }).catch(error => console.log(error))
 }
 
-showPopularFilm(queryParams);
+// showPopularFilm(queryParams);
 
 // Поиск по инпуту
 
@@ -52,14 +52,15 @@ function fetchFilms() {
 }
 
 function searchQueryFilms(e) {
-e.preventDefault();
-clearGallery();
-filmsApiService.resetPage();
-const currentTarget = e.target.value;
-let queryParams = `search/movie?api_key=27c4b211807350ab60580c41abf1bb8c&language=en-US&page=1&include_adult=false&query=${currentTarget}`;
-filmsApiService.query(e.target.value);
+  e.preventDefault();
+  clearGallery();
+  filmsApiService.resetPage();
+  const currentTarget = e.target.value;
+  let queryParams = `search/movie?api_key=27c4b211807350ab60580c41abf1bb8c&language=en-US&page=1&include_adult=false&query=${currentTarget}`;
+  filmsApiService.query(currentTarget);
   console.log(queryParams);
   fetchFilms();
+  console.log(input === document.activeElement);
 }
 
 function clearGallery() {
@@ -120,13 +121,28 @@ const options = {
     filmsApiService.newPage(page);
 
 
+    // showPopularFilm();
+    // fetchFilms();
+    // searchQueryFilms();
     if (input !== document.activeElement) {
       filmsApiService.newPage(page);
       showPopularFilm();
     } else {
       filmsApiService.resetPage();
+      filmsApiService.newPage(page);
       fetchFilms();
+      // searchQueryFilms();
     }
+
+    // if (input.value === '') {
+    //   filmsApiService.newPage(page);
+    //   showPopularFilm();
+    // } else {
+    //   filmsApiService.resetPage();
+    //   searchQueryFilms();
+    // }
     });
+
+    // console.log(input === document.hasFocus());
 
 
