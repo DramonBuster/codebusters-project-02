@@ -1,9 +1,6 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
-// import { URL } from '../js/popular.js';
-import genres from '../js/genres.json';
 
-let queryParams = `trending/movie/week?api_key=27c4b211807350ab60580c41abf1bb8c`;
 let localStr = [];
 let btnWached;
 let idForAddRemoveFilmFromLocalStorage;
@@ -39,7 +36,6 @@ function onModalOpen(evt) {
   });
 
   window.addEventListener('keydown', evt => {
-    // console.log(evt.code);
     if (evt.code === 'Escape') {
       onModalClose(evt);
     }
@@ -47,30 +43,16 @@ function onModalOpen(evt) {
 }
 
 function onGetFilms(evt) {
-  getFilms(queryParams)
-    .then(data => {
-      return data.results;
-    })
-    .then(films => {
-      // const openedFilm = films.find(film => film.title === evt.target.alt);
-      // Переделать под
-      const openedFilm = films.find(film => film.id === Number(evt.target.getAttribute('data-id')));
+  let queryParams = `movie/${evt.target.dataset.id}?api_key=27c4b211807350ab60580c41abf1bb8c&language=en-US`;
 
-      onModalMakeCard(openedFilm);
-      // return;
-    })
+  getFilms(queryParams)
+    .then(film => onModalMakeCard(film))
     .catch(error => console.log(error, 'ошибка!!!  что-то не так с запросом'));
 }
 
 function onModalMakeCard(openedFilm) {
-  const filteredGenres = genres.filter(genre => {
-    return openedFilm.genre_ids.includes(genre.id);
-  });
+  openedFilm.genres = openedFilm.genres.map(genre => genre.name).join(', ');
 
-  const nedenGenres = filteredGenres.map(genre => genre.name).join(', ');
-
-  openedFilm.genre_ids = nedenGenres;
-  openedFilm.poster_path = openedFilm.poster_path;
   const modalCard = modalFilm(openedFilm);
 
   modal.insertAdjacentHTML('afterbegin', modalCard);
