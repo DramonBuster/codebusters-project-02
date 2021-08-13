@@ -1,6 +1,7 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
 import cardForFilm from '../templates/film-card.hbs';
+import appendGalleryMarkup from './drow-marckup';
 
 let btnWachedInModal;
 let btnQueueInModal;
@@ -59,7 +60,8 @@ function onGetFilm(evt) {
 }
 
 function onModalMakeCard(openedFilm) {
-  openedFilm.genres = openedFilm.genres.map(genre => genre.name).join(', ');
+  console.log(openedFilm, `1111111111111111`)
+  // openedFilm.genres = openedFilm.genres.map(genre => genre.name).join(', ');
 
   const modalCard = modalFilm(openedFilm);
 
@@ -199,6 +201,10 @@ btnMyLibrary.addEventListener('click', evt => {
   // По нажатию кнопки МАЙ ЛИБ скрываем или открываем нужные элементы хедера
   libButtons.classList.remove('is-hidden');
   form.classList.add('is-hidden');
+  const headerImg = document.querySelector('.page-header');
+  const hedearImgStart = document.querySelector('.page-header')
+  headerImg.classList.add('library-header');
+  headerImg.classList.remove('page-header')
 
   // const queueFilmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
@@ -223,7 +229,7 @@ function onMadeWatchedGallery() {
   }
 
   console.log('отрисовываем ЛИБ ВОТЧД');
-  // cardList.innerHTML = '';
+  cardList.innerHTML = '';
   const savedWatchedFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
   /**
@@ -267,4 +273,7 @@ function onMadeQueueGallery() {
    * КОНЕЦ ВРЕМЕННОГО РЕШЕНИЯ
    */
   cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
+
+  
+  //  appendGalleryMarkup(savedQueueFilmsInLocalStorage);
 }

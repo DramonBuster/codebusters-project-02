@@ -39,6 +39,7 @@ logoLink.addEventListener('click', () => {
   changeMainThemeHeader();
 });
 
+ 
 function showPopularFilm(queryParams) {
   changeMainThemeHeader();
   getFilms(queryParams)
