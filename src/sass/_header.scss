@@ -145,20 +145,13 @@
     justify-content: center;
   }
 }
-.form.is-hidden {
-  display: none;
-}
+
 .form__input {
   width: 280px;
 
   text-decoration: none;
   background-color: transparent;
   color: #ffffff;
-  &:hover,
-  &:focus,
-  &.current {
-    border-bottom: 2px solid #ff6b01;
-  }
   border: none;
   border-bottom: 0.5px solid #ffffff;
 
@@ -193,12 +186,6 @@
   }
 }
 
-button.serchBtn {
-  position: absolute;
-  right: 0px;
-  size: 16px;
-}
-
 .form__icon {
   position: absolute;
   right: 0px;
@@ -211,23 +198,10 @@ button.serchBtn {
     right: 273px;
   }
 }
-.notification {
-   color: rgba(255, 0, 27, 1);
-   text-align: center;
-   width: 100%;
-   height: 16px;
-   padding-top: 22px;
-   font-family: Roboto;
-   font-size: 14px;
-   line-height: 1.17;
-}
-
 
 // Замена фона для библиотеки
 
 .library-header {
-  padding-top: 46px;
-
   padding-bottom: 65px;
 
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
