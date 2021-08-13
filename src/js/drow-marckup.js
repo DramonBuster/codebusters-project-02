@@ -9,6 +9,8 @@ export default function appendGalleryMarkup(filmResult) {
     const markup = gallery(newGallery)
 
     galleryContainer.innerHTML = markup;
+
+  
 }
 
 function filterGalleryProperty(filmResult) {
@@ -29,7 +31,7 @@ function filterForGenres(film) {
 
      const sumGenres = [];
     if (film.genres) {
-        
+
  
         const genresArray = film.genres.map(genre => genre.name);
 
