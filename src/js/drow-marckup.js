@@ -12,32 +12,20 @@ export default function appendGalleryMarkup(filmResult) {
 
 }
 
-
 function filterGalleryProperty(filmResult) {
-    
+
    const newGallery = filmResult.map(film => {
     
-       
         filterForRealese(film)
-       
-      
-        
-    //    console.log(newGenres)
-    
-    
        filterForGenres(film)
-      
        filterForPosters(film)
-       
-      
         return film;
    });
     return newGallery
 }
+
 function filterForPosters(film) {
       if (film.poster_path === null) {
-        //    film.poster_path = `https://www.begindot.com/wp-content/uploads/2019/01/Best-Coming-Soon-HTML-Templates.jpg`;
-        //   film.poster_path = `https://i.ibb.co/5KRPDGk/viber-2021-08-12-14-52-03-837.jpg`;
           film.poster_path = `https://i.ibb.co/HxmtdsL/viber-2021-08-12-15-51-44-146.jpg`
             
        } else {
@@ -47,7 +35,6 @@ function filterForPosters(film) {
 }
 function filterForRealese(film) {
          if (film.release_date == "") {
-           
            film.release_date = 'n/a';
        } else  {
            film.release_date = Number.parseInt(film.release_date) 
@@ -55,32 +42,66 @@ function filterForRealese(film) {
  }
 function filterForGenres(film) {
 
-    const newGenres = film.genre_ids;
-    const basicGenres = newGenres.slice(0, 3);
-    const othersGenres = newGenres.slice(3);
-    const sumGenres = [];
-    
-       if (newGenres.length === 0) {
+     const sumGenres = [];
+    if (film.genres) {
+        
+             if (film.genres.length === 0) {
+              
+                 sumGenres.push('Others');
+                  film.genres = sumGenres.join(', ');
+                 return
+       }
+        
+        const genresArray = film.genres.map(genre => genre.name);
+
+                 const basicGenres = genresArray.slice(0, 3);
+  
+        const genresNames = genresArray.map(name => {
+            
+            if (sumGenres.length <= 2) {
+               
+                if (sumGenres.length === 2 && genresArray.length > basicGenres.length) {
+                    sumGenres.push('Other')
+                    return
+                }
+                sumGenres.push(name)
+            }
+        }
+
+        );
+
+            film.genres = sumGenres.join(', ');
+            return;
+    }
+
+    const newGenresId = film.genre_ids;
+    const basicGenres = newGenresId.slice(0, 3);
+
+       if (newGenresId.length === 0) {
           
            sumGenres.push('Others');
-       }
-     genres.map(genre => {
-            if (basicGenres.includes(genre.id)) {
-                if (sumGenres.length <= basicGenres.length) {
-                    
-                    if (sumGenres.length === 2 && newGenres.length > basicGenres.length) {
-                        // sumGenres.push(genre.name)
+    };
+      genres.map(genre => {
+         if (basicGenres.includes(genre.id)) {
+               getShortListGenres(sumGenres, newGenresId, basicGenres, genre.name)
+            }
+     })
+ 
+    film.genres = sumGenres.join(', ');
+    
+}
+
+function getShortListGenres(sumGenres, newGenresId, basicGenres, genre) {
+
+          if (sumGenres.length <= basicGenres.length) {
+                  
+                    if (sumGenres.length === 2 && newGenresId.length > basicGenres.length) {
                         sumGenres.push('Others')
                         return
                     }
-                    sumGenres.push(genre.name)
-                }
-            }
-     })
-     film.genre_ids = sumGenres.join(', ');
+                    sumGenres.push(genre)
+    }  
 }
-
-
 
 
 
