@@ -10,17 +10,29 @@ import appendGalleryMarkup from './drow-marckup'
 
 const logoLink = document.querySelector('.logo__link')
 const buttonHome = document.querySelector('.page-header__btn')
+const buttonsLibrary = document.querySelector('.library-nav')
+const form = document.querySelector('.form')
+const headerImg = document.querySelector('.page-header')
  let queryParams = `trending/movie/week?api_key=27c4b211807350ab60580c41abf1bb8c`;
 
 //слушатель на кнопке
 buttonHome.addEventListener('click', () => {
+        headerImg.classList.remove('library-header')
+    headerImg.classList.add('page-header')
+    buttonsLibrary.classList.add('is-hidden');
+    form.classList.remove('is-hidden');
     showPopularFilm(queryParams)
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', () => {
+    headerImg.classList.remove('library-header')
+    headerImg.classList.add('page-header')
+     buttonsLibrary.classList.add('is-hidden');
+    form.classList.remove('is-hidden');
      showPopularFilm(queryParams)
  })
 
+ 
 function showPopularFilm(queryParams) {
    
     getFilms(queryParams).then(films => {
