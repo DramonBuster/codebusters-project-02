@@ -9,17 +9,15 @@ export default function appendGalleryMarkup(filmResult) {
     const markup = gallery(newGallery)
 
     galleryContainer.innerHTML = markup;
-
 }
 
 function filterGalleryProperty(filmResult) {
 
-   const newGallery = filmResult.map(film => {
-    
+    const newGallery = filmResult.map(film => {
         filterForRealese(film)
-       filterForGenres(film)
-       filterForPosters(film)
-        return film;
+        filterForGenres(film)
+        filterForPosters(film)
+          return film;
    });
     return newGallery
 }
