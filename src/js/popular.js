@@ -13,6 +13,9 @@ const buttonHome = document.querySelector('.page-header__btn')
 const buttonsLibrary = document.querySelector('.library-nav')
 const form = document.querySelector('.form')
 const headerImg = document.querySelector('.page-header')
+const btnMyLibrary = document.querySelector('.library');
+const btnHome = document.querySelector('.home');
+
  let queryParams = `trending/movie/week?api_key=27c4b211807350ab60580c41abf1bb8c`;
 
 //слушатель на кнопке
@@ -22,6 +25,7 @@ buttonHome.addEventListener('click', () => {
     buttonsLibrary.classList.add('is-hidden');
     form.classList.remove('is-hidden');
     showPopularFilm(queryParams)
+    // changeMainThemeHeader();
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', () => {
@@ -30,17 +34,26 @@ logoLink.addEventListener('click', () => {
      buttonsLibrary.classList.add('is-hidden');
     form.classList.remove('is-hidden');
      showPopularFilm(queryParams)
+     changeMainThemeHeader();
  })
 
  
 function showPopularFilm(queryParams) {
-   
+    changeMainThemeHeader();
     getFilms(queryParams).then(films => {
         const totalResult = films.results;
         const pages = films.total_pages;
         console.log(pages, `всего страниц для пагинации`)
         appendGalleryMarkup(totalResult)
  }).catch(error => console.log(error))
+}
+
+function changeMainThemeHeader() {
+    headerImg.classList.remove('library-header');
+    buttonsLibrary.classList.add('is-hidden');
+    form.classList.remove('is-hidden');
+    btnMyLibrary.classList.remove('current');
+    btnHome.classList.add('current');
 }
 
 
