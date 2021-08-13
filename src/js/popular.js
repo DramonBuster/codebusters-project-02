@@ -20,21 +20,35 @@ const btnHome = document.querySelector('.home');
 
 let queryParams = `trending/movie/week?api_key=27c4b211807350ab60580c41abf1bb8c`;
 
-//слушатель на кнопке
+// слушатель на кнопке
 buttonHome.addEventListener('click', () => {
   // for modal down
+  // btnQueueInHeader.classList.remove('current');
+  // btnWatchedInHeader.classList.remove('current');
+  // for modal up
   btnQueueInHeader.classList.remove('current');
   btnWatchedInHeader.classList.remove('current');
-  // for modal up
+  header.classList.remove('library-header');
+  header.classList.add('page-header');
+  libraryNav.classList.add('is-hidden');
+  form.classList.remove('is-hidden');
+  btnMyLibrary.classList.remove('current');
+  btnHome.classList.add('current');
   showPopularFilm(queryParams);
   changeMainThemeHeader();
 });
 //слушатель на ссылке
 logoLink.addEventListener('click', () => {
   // for modal down
+
   btnQueueInHeader.classList.remove('current');
   btnWatchedInHeader.classList.remove('current');
-  // for modal up
+  header.classList.remove('library-header');
+  header.classList.add('page-header');
+  libraryNav.classList.add('is-hidden');
+  form.classList.remove('is-hidden');
+  btnMyLibrary.classList.remove('current');
+  btnHome.classList.add('current');
   showPopularFilm(queryParams);
   changeMainThemeHeader();
 });
@@ -53,6 +67,7 @@ function showPopularFilm(queryParams) {
 }
 
 function changeMainThemeHeader() {
+
   header.classList.remove('library-header');
   libraryNav.classList.add('is-hidden');
   form.classList.remove('is-hidden');
