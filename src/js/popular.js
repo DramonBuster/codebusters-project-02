@@ -1,5 +1,5 @@
 //FT-07 Реализовать подгрузку популярных фильмов на главную (первую) страницу
-
+import { paginationPopularFilms } from './pagination'
 import getFilms from './fetch-popular'
 // import AxiosApi from './fetch-popular'
 import gallery from '../templates/film-card.hbs'
@@ -48,6 +48,11 @@ function showPopularFilm(queryParams) {
  }).catch(error => console.log(error))
 }
 
+setTimeout(() => {
+    paginationPopularFilms();
+    
+},300);
+
 function changeMainThemeHeader() {
     headerImg.classList.remove('library-header');
     buttonsLibrary.classList.add('is-hidden');
@@ -59,6 +64,9 @@ function changeMainThemeHeader() {
 
 
 showPopularFilm(queryParams);
+//запускаем пагинацию страницы
+
+
 
 
 
