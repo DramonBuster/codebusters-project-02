@@ -217,6 +217,10 @@ btnMyLibrary.addEventListener('click', evt => {
   // По нажатию кнопки МАЙ ЛИБ скрываем или открываем нужные элементы хедера
   libButtons.classList.remove('is-hidden');
   form.classList.add('is-hidden');
+  const headerImg = document.querySelector('.page-header');
+  const hedearImgStart = document.querySelector('.page-header')
+  headerImg.classList.add('library-header');
+  headerImg.classList.remove('page-header')
 
   // const queueFilmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
