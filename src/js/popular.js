@@ -10,9 +10,9 @@ import appendGalleryMarkup from './drow-marckup'
 
 const logoLink = document.querySelector('.logo__link')
 const buttonHome = document.querySelector('.page-header__btn')
-const header = document.querySelector('.page-header')
+const buttonsLibrary = document.querySelector('.library-nav')
 const form = document.querySelector('.form')
-const libraryNav = document.querySelector('.library-nav')
+const headerImg = document.querySelector('.page-header')
 const btnMyLibrary = document.querySelector('.library');
 const btnHome = document.querySelector('.home');
 
@@ -20,15 +20,24 @@ const btnHome = document.querySelector('.home');
 
 //слушатель на кнопке
 buttonHome.addEventListener('click', () => {
-    showPopularFilm(queryParams);
-    changeMainThemeHeader();
+        headerImg.classList.remove('library-header')
+    headerImg.classList.add('page-header')
+    buttonsLibrary.classList.add('is-hidden');
+    form.classList.remove('is-hidden');
+    showPopularFilm(queryParams)
+    // changeMainThemeHeader();
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', () => {
+    headerImg.classList.remove('library-header')
+    headerImg.classList.add('page-header')
+     buttonsLibrary.classList.add('is-hidden');
+    form.classList.remove('is-hidden');
      showPopularFilm(queryParams)
      changeMainThemeHeader();
  })
 
+ 
 function showPopularFilm(queryParams) {
     changeMainThemeHeader();
     getFilms(queryParams).then(films => {
@@ -40,8 +49,8 @@ function showPopularFilm(queryParams) {
 }
 
 function changeMainThemeHeader() {
-    header.classList.remove('library-header');
-    libraryNav.classList.add('is-hidden');
+    headerImg.classList.remove('library-header');
+    buttonsLibrary.classList.add('is-hidden');
     form.classList.remove('is-hidden');
     btnMyLibrary.classList.remove('current');
     btnHome.classList.add('current');
