@@ -1,13 +1,11 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
 import cardForFilm from '../templates/film-card.hbs';
-import appendGalleryMarkup from './drow-marckup';
 
-let btnWached;
-let btnQueue;
+let btnWachedInModal;
+let btnQueueInModal;
 
 const cards = document.querySelector('.film-card__list');
-const cardsArray = document.querySelectorAll('.film-card__item');
 const backdrop = document.querySelector('.backdrop');
 const modal = document.querySelector('.modal');
 const body = document.querySelector('body');
@@ -20,8 +18,9 @@ const cardList = document.querySelector('.film-card__list');
 const libButtons = document.querySelector('.library-nav');
 const form = document.querySelector('.form');
 
-const btnWatchedInHeader = document.querySelector('button[data-info="watched"]');
-const btnQueueInHeader = document.querySelector('button[data-info="queue"]');
+// export to popular
+export const btnWatchedInHeader = document.querySelector('button[data-info="watched"]');
+export const btnQueueInHeader = document.querySelector('button[data-info="queue"]');
 
 // Работа с модальным окном - открытие и закрытие
 cards.addEventListener('click', onModalOpen);
@@ -60,15 +59,14 @@ function onGetFilm(evt) {
 }
 
 function onModalMakeCard(openedFilm) {
-  console.log(openedFilm, `1111111111111111`)
-  // openedFilm.genres = openedFilm.genres.map(genre => genre.name).join(', ');
+  openedFilm.genres = openedFilm.genres.map(genre => genre.name).join(', ');
 
   const modalCard = modalFilm(openedFilm);
 
   modal.insertAdjacentHTML('afterbegin', modalCard);
 
-  btnWached = document.querySelector('.watched');
-  btnQueue = document.querySelector('.queue');
+  btnWachedInModal = document.querySelector('.watched');
+  btnQueueInModal = document.querySelector('.queue');
 
   const btnModalClose = document.querySelector('.button-close');
   btnModalClose.addEventListener('click', onModalClose);
@@ -79,12 +77,12 @@ function onModalMakeCard(openedFilm) {
 
   onCheckLocalStorage(openedFilm);
 
-  btnWached.addEventListener('click', evt => {
-    onAddRemoveWached(evt, openedFilm);
+  btnWachedInModal.addEventListener('click', evt => {
+    onAddRemoveWachedToLocalStorage(evt, openedFilm);
   });
 
-  btnQueue.addEventListener('click', evt => {
-    onAddRemoveQueue(evt, openedFilm);
+  btnQueueInModal.addEventListener('click', evt => {
+    onAddRemoveQueueToLocalStorage(evt, openedFilm);
   });
 }
 
@@ -109,8 +107,8 @@ function onSearchFilmInLocalStorageForChangeButtons(openedFilm) {
       if (openedFilm.id !== Number(savedWachedFilm.id)) {
         return;
       }
-      btnWached.textContent = 'remove from watched';
-      btnWached.dataset.action = 'remove';
+      btnWachedInModal.textContent = 'remove from watched';
+      btnWachedInModal.dataset.action = 'remove';
     });
   }
 
@@ -119,16 +117,16 @@ function onSearchFilmInLocalStorageForChangeButtons(openedFilm) {
       if (openedFilm.id !== Number(savedQueueFilm.id)) {
         return;
       }
-      btnQueue.textContent = 'remove from queue';
-      btnQueue.dataset.action = 'remove';
+      btnQueueInModal.textContent = 'remove from queue';
+      btnQueueInModal.dataset.action = 'remove';
     });
   }
 }
 
-function onAddRemoveWached(evt, openedFilm) {
+function onAddRemoveWachedToLocalStorage(evt, openedFilm) {
   if (evt.target.dataset.action === 'remove') {
-    btnWached.textContent = 'add to watched';
-    btnWached.dataset.action = 'add';
+    btnWachedInModal.textContent = 'add to watched';
+    btnWachedInModal.dataset.action = 'add';
 
     const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
@@ -137,11 +135,9 @@ function onAddRemoveWached(evt, openedFilm) {
     );
 
     localStorage.setItem(LOCALSTORAGE_WATCHED, JSON.stringify(modifiedSavedFilms));
-
-    // onRemoveFilmFromLocalStorage(); Вынести удаление в отдельную функцию? как в конспекте
   } else {
-    btnWached.textContent = 'remove from watched';
-    btnWached.dataset.action = 'remove';
+    btnWachedInModal.textContent = 'remove from watched';
+    btnWachedInModal.dataset.action = 'remove';
 
     if (localStorage.getItem(LOCALSTORAGE_WATCHED) === null) {
       localStorage.setItem(LOCALSTORAGE_WATCHED, JSON.stringify([openedFilm]));
@@ -152,15 +148,13 @@ function onAddRemoveWached(evt, openedFilm) {
 
       localStorage.setItem(LOCALSTORAGE_WATCHED, JSON.stringify(filmsFromLocalStorage));
     }
-
-    // onAddFilmToLocalStorage(); вынести добавление в отдельную функцию?
   }
 }
 
-function onAddRemoveQueue(evt, openedFilm) {
+function onAddRemoveQueueToLocalStorage(evt, openedFilm) {
   if (evt.target.dataset.action === 'remove') {
-    btnQueue.textContent = 'add to queue';
-    btnQueue.dataset.action = 'add';
+    btnQueueInModal.textContent = 'add to queue';
+    btnQueueInModal.dataset.action = 'add';
 
     const filmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
@@ -169,11 +163,9 @@ function onAddRemoveQueue(evt, openedFilm) {
     );
 
     localStorage.setItem(LOCALSTORAGE_QUEUE, JSON.stringify(modifiedSavedFilms));
-
-    // onRemoveFilmFromLocalStorage(); Вынести удаление в отдельную функцию? как в конспекте
   } else {
-    btnQueue.textContent = 'remove from queue';
-    btnQueue.dataset.action = 'remove';
+    btnQueueInModal.textContent = 'remove from queue';
+    btnQueueInModal.dataset.action = 'remove';
 
     if (localStorage.getItem(LOCALSTORAGE_QUEUE) === null) {
       localStorage.setItem(LOCALSTORAGE_QUEUE, JSON.stringify([openedFilm]));
@@ -184,31 +176,21 @@ function onAddRemoveQueue(evt, openedFilm) {
 
       localStorage.setItem(LOCALSTORAGE_QUEUE, JSON.stringify(filmsFromLocalStorage));
     }
-
-    // onAddFilmToLocalStorage(); вынести добавление в отдельную функцию?
   }
 }
 
-function onRemoveFilmFromLocalStorage() {
-  console.log();
-}
-
-function onAddFilmToLocalStorage() {
-  console.log();
-}
-
 function onModalClose(evt) {
-  // console.log(evt.code);
-  // console.log(evt.target);
-  // console.log(evt.currentTarget);
-  // console.log(evt.target.classList.contains('backdrop'));
+  if (btnQueueInHeader.classList.contains('current')) {
+    onMadeQueueGallery();
+    console.log('НАХОЖУСЬ в либе КУКУ и пытаюсь поменять карточки');
+  } else if (btnWatchedInHeader.classList.contains('current')) {
+    onMadeWatchedGallery();
+    console.log('НАХОЖУСь в либе ВОТЧД и карточки меняю!!');
+  }
 
   backdrop.classList.add('is-hidden');
   modal.classList.add('is-hidden');
   body.classList.remove('modal-open');
-
-  // libButtons.classList.add('is-hidden');
-  // form.classList.remove('is-hidden');
 
   modal.innerHTML = '';
 }
@@ -217,19 +199,20 @@ btnMyLibrary.addEventListener('click', evt => {
   // По нажатию кнопки МАЙ ЛИБ скрываем или открываем нужные элементы хедера
   libButtons.classList.remove('is-hidden');
   form.classList.add('is-hidden');
-  const headerImg = document.querySelector('.page-header');
-  const hedearImgStart = document.querySelector('.page-header')
-  headerImg.classList.add('library-header');
-  headerImg.classList.remove('page-header')
 
   // const queueFilmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
   // Вешаем слушателей на кнопки и запускаем функцию отрисовки новой галереи
   btnWatchedInHeader.addEventListener('click', onMadeWatchedGallery);
   btnQueueInHeader.addEventListener('click', onMadeQueueGallery);
+  onMadeQueueGallery();
 });
 
 function onMadeWatchedGallery() {
+  cardList.innerHTML = '';
+
+  btnQueueInHeader.classList.remove('current');
+  btnWatchedInHeader.classList.add('current');
   if (
     localStorage.getItem(LOCALSTORAGE_WATCHED) === null ||
     JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]')
@@ -240,14 +223,27 @@ function onMadeWatchedGallery() {
   }
 
   console.log('отрисовываем ЛИБ ВОТЧД');
-  cardList.innerHTML = '';
+  // cardList.innerHTML = '';
   const savedWatchedFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
-  appendGalleryMarkup(savedWatchedFilmsInLocalStorage);
+  /**
+   * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
+   */
+  const a = savedWatchedFilmsInLocalStorage.map(film => {
+    film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
 
+    console.log(film, `gjhvjhv`);
+  });
+  console.log(a, `wowwo`);
+  // appendGalleryMarkup(savedWatchedFilmsInLocalStorage);
+  cardList.innerHTML = cardForFilm(savedWatchedFilmsInLocalStorage);
 }
 
 function onMadeQueueGallery() {
+  cardList.innerHTML = '';
+
+  btnWatchedInHeader.classList.remove('current');
+  btnQueueInHeader.classList.add('current');
   if (
     localStorage.getItem(LOCALSTORAGE_QUEUE) === null ||
     JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE) === '[]')
@@ -257,10 +253,18 @@ function onMadeQueueGallery() {
     return;
   }
 
-  cardList.innerHTML = '';
-  
   const savedQueueFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
+  /**
+   * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
+   */
+  const a = savedQueueFilmsInLocalStorage.map(film => {
+    film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
 
-  
-   appendGalleryMarkup(savedQueueFilmsInLocalStorage);
+    console.log(film, `gjhvjhv`);
+  });
+  console.log(a, `wowwo`);
+  /**\
+   * КОНЕЦ ВРЕМЕННОГО РЕШЕНИЯ
+   */
+  cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
 }
