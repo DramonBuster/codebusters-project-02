@@ -5,7 +5,7 @@ import getFilms from './fetch-popular'
 import gallery from '../templates/film-card.hbs'
 import genres from './genres.json'
 import appendGalleryMarkup from './drow-marckup'
-
+import { btnWatchedInHeader, btnQueueInHeader } from './modal.js';
 
 
 const logoLink = document.querySelector('.logo__link')
@@ -26,6 +26,11 @@ buttonHome.addEventListener('click', () => {
     form.classList.remove('is-hidden');
     showPopularFilm(queryParams)
     // changeMainThemeHeader();
+    btnQueueInHeader.classList.remove('current');
+  btnWatchedInHeader.classList.remove('current');
+  // for modal up
+
+
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', () => {
@@ -35,6 +40,9 @@ logoLink.addEventListener('click', () => {
     form.classList.remove('is-hidden');
      showPopularFilm(queryParams)
      changeMainThemeHeader();
+
+      btnQueueInHeader.classList.remove('current');
+  btnWatchedInHeader.classList.remove('current');
  })
 
  
