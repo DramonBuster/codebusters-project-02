@@ -229,12 +229,12 @@ function onMadeWatchedGallery() {
   /**
    * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
    */
-  const a = savedWatchedFilmsInLocalStorage.map(film => {
-    film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
+  // const a = savedWatchedFilmsInLocalStorage.map(film => {
+  //   film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
 
-    console.log(film, `gjhvjhv`);
-  });
-  console.log(a, `wowwo`);
+  //   console.log(film, `gjhvjhv`);
+  // });
+  // console.log(a, `wowwo`);
   // appendGalleryMarkup(savedWatchedFilmsInLocalStorage);
   cardList.innerHTML = cardForFilm(savedWatchedFilmsInLocalStorage);
 }
@@ -257,12 +257,12 @@ function onMadeQueueGallery() {
   /**
    * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
    */
-  const a = savedQueueFilmsInLocalStorage.map(film => {
-    film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
+  // const a = savedQueueFilmsInLocalStorage.map(film => {
+  //   film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
 
-    console.log(film, `gjhvjhv`);
-  });
-  console.log(a, `wowwo`);
+  //   console.log(film, `gjhvjhv`);
+  // });
+  // console.log(a, `wowwo`);
   /**\
    * КОНЕЦ ВРЕМЕННОГО РЕШЕНИЯ
    */
