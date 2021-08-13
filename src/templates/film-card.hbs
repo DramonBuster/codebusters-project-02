@@ -2,12 +2,8 @@
 {{#each this}}
 <li class="film-card__item">
     <a class="film-card__link" href="https://image.tmdb.org/t/p/original{{poster_path}}"></a><div class="thumb__card">
-        {{#if poster_path}}
-        <img data-id="{{id}}" class="film-card__img" src="https://image.tmdb.org/t/p/original{{poster_path}}" alt="{{title}}"
+        <img data-id="{{id}}" class="film-card__img" src="{{poster_path}}" alt="{{title}}"
                 loading="lazy" />
-        {{else}}
-        <img data-id="{{id}}" class="film-card__img" src="https://i.ibb.co/HxmtdsL/viber-2021-08-12-15-51-44-146.jpg" alt="{{title}}" loading="lazy" />
-        {{/if}}
     </div>
     <div class="film-card__info">
 
@@ -16,20 +12,13 @@
         </p>
 
         <ul class="genre-set">
-        {{#if genres}}
-            <li class="film-info__genre">{{genres}}</li>
-            {{else}}
-            <li class="film-info__genre">Others</li>
+        {{#if genre_ids}}
+            <li class="film-info__genre">{{genre_ids}}</li>
         {{/if}}
         </ul>
 
-    {{#if release_date}}
-    <span class="film-card__release">| {{release_date}}</span>
-    {{else}}
-    <span class="film-card__release">| N/A</span>
-    {{/if}}
-      
-        <span class="film-card__rating is-hidden"> {{vote_average}}</span>
+        <span class="film-card__release">| {{release_date}}</span>
+        <span class="film-card__rating is-hidden">| {{vote_average}}</span>
     </div></a>
 </li>
 {{/each}}
