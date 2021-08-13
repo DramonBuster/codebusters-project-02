@@ -2,10 +2,11 @@ import getFilms from './fetch-popular';
 import appendGalleryMarkup from './drow-marckup';
 import { paginationSearchFilms } from './pagination'
 
-const input = document.querySelector('.form__input');
+const form = document.querySelector('.form');
+// const input = document.querySelector('.form__input');
 const galleryContainer = document.querySelector('.film-card__list');
-
-input.addEventListener('input', serchFilms);
+const notification = document.querySelector('.notification');
+form.addEventListener('submit', serchFilms);
 
 function serchFilms(e) {
   e.preventDefault();
