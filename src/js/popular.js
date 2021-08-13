@@ -58,7 +58,7 @@ function showPopularFilm(queryParams) {
 
 setTimeout(() => {
     paginationPopularFilms();
-    
+    // showPaginationBtns();
 },300);
 
 function changeMainThemeHeader() {

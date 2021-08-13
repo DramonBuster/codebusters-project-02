@@ -1,6 +1,7 @@
 import getFilms from './fetch-popular';
 import appendGalleryMarkup from './drow-marckup';
-import { paginationSearchFilms } from './pagination'
+import { paginationSearchFilms } from './pagination';
+// import { hidePaginationBtns } from './pagination';
 
 const form = document.querySelector('.form');
 // const input = document.querySelector('.form__input');
@@ -31,9 +32,11 @@ function serchFilms(e) {
     .catch(error => console.log(error));
     //запускаем пагинацию фильмов по названию
   setTimeout(() => {
-    paginationSearchFilms()
+    paginationSearchFilms();
+    // hidePaginationBtns();
   }, 300);
   form.reset();
+  // hidePaginationBtns();
 }
 
 function clearGallery() {

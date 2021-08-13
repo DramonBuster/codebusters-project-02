@@ -2,6 +2,9 @@ import getFilms from './fetch-popular'
 import appendGalleryMarkup from './drow-marckup'
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
+
+const paginationBtn = document.querySelector('.tui-page-btn');
+const paginationContainer = document.getElementById('pagination');
 //параметры пагинации
 export const options = {
     totalItems: 20000,
@@ -73,3 +76,27 @@ export function paginationSearchFilms() {
             .catch(error => console.log(error));
     }); 
 };
+
+// export function hidePaginationBtns() {
+//   if (options.totalItems <= 20) {
+//     paginationContainer.classList.add('is-hidden');
+//   } 
+// }
+
+// export function showPaginationBtns() {
+//   if (options.totalItems > 20) {
+//     paginationContainer.classList.remove('is-hidden');
+//   } 
+// }
+
+// export function hidePaginationBtns() {
+//   if ($('#pagination .tui-page-btn').length <= 5) {
+//     paginationContainer.classList.add('is-hidden');
+//   }
+// }
+
+// console.log($('#pagination .tui-page-btn').length);
+
+// hidePaginationBtns();
+
+// hidePaginationBtns();
