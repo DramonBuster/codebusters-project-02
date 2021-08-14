@@ -31,8 +31,8 @@ function filterForRealese(film) {
 function filterForGenres(film) {
 
      const sumGenres = [];
-    if (film.genres) {
-        console.log(film.genres, `Я С ЖАНРАМИИ`)
+if (film.genres) {
+        
              if (film.genres.length === 0) {
               
                  sumGenres.push('Others');
@@ -62,10 +62,9 @@ function filterForGenres(film) {
             film.genres = sumGenres.join(', ');
             return;
     }
-    if (film.genre_ids) {
-        console.log(`Я БЕЗ ЖАНРОВ`)
+if (film.genre_ids) {
+        
     const newGenresId = film.genre_ids;
-    console.log(film.genre_ids, `проверяем айнди массив`)
     const basicGenres = newGenresId.slice(0, 3);
 
       genres.map(genre => {
