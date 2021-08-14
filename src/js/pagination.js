@@ -1,7 +1,7 @@
 import getFilms from './fetch-popular'
 import appendGalleryMarkup from './drow-marckup'
 import Pagination from 'tui-pagination';
-import 'tui-pagination/dist/tui-pagination.css';
+// import 'tui-pagination/dist/tui-pagination.css';
 //параметры пагинации
 export const options = {
     totalItems: 20000,
