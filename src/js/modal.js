@@ -1,6 +1,7 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
-import cardForFilm from '../templates/film-card.hbs';
+import appendGalleryMarkup from './drow-marckup'
+// import cardForFilm from '../templates/film-card.hbs';
 
 let btnWachedInModal;
 let btnQueueInModal;
@@ -235,8 +236,8 @@ function onMadeWatchedGallery() {
   //   console.log(film, `gjhvjhv`);
   // });
   // console.log(a, `wowwo`);
-  // appendGalleryMarkup(savedWatchedFilmsInLocalStorage);
-  cardList.innerHTML = cardForFilm(savedWatchedFilmsInLocalStorage);
+  appendGalleryMarkup(savedWatchedFilmsInLocalStorage);
+  // cardList.innerHTML = cardForFilm(savedWatchedFilmsInLocalStorage);
 }
 
 function onMadeQueueGallery() {
@@ -254,6 +255,7 @@ function onMadeQueueGallery() {
   }
 
   const savedQueueFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
+
   /**
    * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
    */
@@ -266,5 +268,6 @@ function onMadeQueueGallery() {
   /**\
    * КОНЕЦ ВРЕМЕННОГО РЕШЕНИЯ
    */
-  cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
+  // cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
+   appendGalleryMarkup(savedQueueFilmsInLocalStorage);
 }
