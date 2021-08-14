@@ -56,9 +56,10 @@ export function showPopularFilm(queryParams) {
       appendGalleryMarkup(totalResult);
     })
     .catch(error => console.log(error));
-    setTimeout(() => {
-      paginationPopularFilms();
-    }, 300);
+  //запускаем пагинацию страницы
+  setTimeout(() => {
+    paginationPopularFilms();
+  }, 300);
 }
 
 function changeMainThemeHeader() {
@@ -70,7 +71,7 @@ function changeMainThemeHeader() {
 }
 
 showPopularFilm(queryParams);
-//запускаем пагинацию страницы
+
 
 // /**
 //  * классы закоммичены
