@@ -147,3 +147,4 @@ export function paginationLibraryFilms(savedQueueFilmsInLocalStorage) {
 // }
 
 // hidePaginationBtns();
+console.log('ПРОВЕРКА');
