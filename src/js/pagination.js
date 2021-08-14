@@ -3,6 +3,8 @@ import appendGalleryMarkup from './drow-marckup'
 import Pagination from 'tui-pagination';
 // import 'tui-pagination/dist/tui-pagination.css';
 //параметры пагинации
+
+const paginationDiv = document.querySelector('.tui-pagination');
 export const options = {
     totalItems: 20000,
     itemsPerPage: 20,
@@ -57,6 +59,7 @@ export function paginationSearchFilms() {
     console.log("количество фильмов в локале", localStorage.movies)
     //в параметры пагинации вносим количество фильмов из LocalStorage
     options.totalItems = localStorage.movies;
+    hidePaginationBtns();
     //собственно рисует интерфейс пагинации
     const pagination = new Pagination('pagination', options);
     //возвращает на первую страницу
@@ -86,10 +89,10 @@ export function paginationLibraryFilms(savedQueueFilmsInLocalStorage) {
   //в параметры пагинации вносим количество фильмов из LocalStorage
   // const queueA = JSON.parse(localStorage.queue);
 
-
   // ВЫЧИСЛЯЕТ ЗАВИСИМОСТЬ СТРАНИЦ ОТ КАРТОЧЕК
   // options.totalItems = JSON.parse(localStorage.queue).length;
   options.totalItems = 1;
+  hidePaginationBtns();
 
   // if (queueA.length > options.itemsPerPage) {
   //   const a = queueA.slice(0, 20);
@@ -117,3 +120,12 @@ export function paginationLibraryFilms(savedQueueFilmsInLocalStorage) {
       const queue = JSON.parse(localStorage.queue);
   }); 
 };
+
+
+// Прячет одну страницу
+
+function hidePaginationBtns() {
+  if (options.totalItems <= 20) {
+    paginationDiv.classList.add('is-hidden');
+  }
+}

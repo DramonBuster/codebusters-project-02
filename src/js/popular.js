@@ -14,6 +14,7 @@ const form = document.querySelector('.form');
 const headerImg = document.querySelector('.page-header');
 const btnMyLibrary = document.querySelector('.library');
 const btnHome = document.querySelector('.home');
+const paginationDiv = document.querySelector('.tui-pagination');
 
 let queryParams = `trending/movie/week?api_key=27c4b211807350ab60580c41abf1bb8c`;
 
@@ -43,6 +44,7 @@ logoLink.addEventListener('click', () => {
 });
 
 export function showPopularFilm(queryParams) {
+  paginationDiv.classList.remove('is-hidden');
   changeMainThemeHeader();
   getFilms(queryParams)
     .then(films => {
@@ -58,10 +60,6 @@ export function showPopularFilm(queryParams) {
       paginationPopularFilms();
     }, 300);
 }
-
-setTimeout(() => {
-  paginationPopularFilms();
-}, 300);
 
 function changeMainThemeHeader() {
   headerImg.classList.remove('library-header');
