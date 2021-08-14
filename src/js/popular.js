@@ -1,11 +1,12 @@
 //FT-07 Реализовать подгрузку популярных фильмов на главную (первую) страницу
-import { paginationPopularFilms } from './pagination'
+import { options, paginationPopularFilms } from './pagination'
 import getFilms from './fetch-popular'
 // import AxiosApi from './fetch-popular'
 import gallery from '../templates/film-card.hbs'
 import genres from './genres.json'
 import appendGalleryMarkup from './drow-marckup'
 import { btnWatchedInHeader, btnQueueInHeader } from './modal.js';
+// import { showPaginationBtns } from './pagination'
 
 
 const logoLink = document.querySelector('.logo__link')
@@ -20,6 +21,7 @@ const btnHome = document.querySelector('.home');
 
 //слушатель на кнопке
 buttonHome.addEventListener('click', () => {
+    // showPaginationBtns();
         headerImg.classList.remove('library-header')
     headerImg.classList.add('page-header')
     buttonsLibrary.classList.add('is-hidden');
@@ -34,6 +36,7 @@ buttonHome.addEventListener('click', () => {
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', () => {
+    // showPaginationBtns();
     headerImg.classList.remove('library-header')
     headerImg.classList.add('page-header')
      buttonsLibrary.classList.add('is-hidden');
@@ -54,6 +57,7 @@ function showPopularFilm(queryParams) {
         console.log(pages, `всего страниц для пагинации`)
         appendGalleryMarkup(totalResult)
  }).catch(error => console.log(error))
+// showPaginationBtns();
 }
 
 setTimeout(() => {

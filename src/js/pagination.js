@@ -5,6 +5,9 @@ import 'tui-pagination/dist/tui-pagination.css';
 
 const paginationBtn = document.querySelector('.tui-page-btn');
 const paginationContainer = document.getElementById('pagination');
+const paginationButtons = document.querySelectorAll('#pagination .tui-page-btn');
+
+console.log(paginationButtons.length);
 //параметры пагинации
 export const options = {
     totalItems: 20000,
@@ -35,6 +38,8 @@ export const options = {
 export function paginationPopularFilms() {
     //собственно рисует интерфейс пагинации
     const pagination = new Pagination('pagination', options);
+    options.totalItems = 20000;
+    console.log(options.totalItems);
     //переход по страницам
     pagination.on('afterMove', (event) => {
         //номер страницы, на которую нажали
@@ -57,6 +62,7 @@ export function paginationSearchFilms() {
     console.log("количество фильмов в локале", localStorage.movies)
     //в параметры пагинации вносим количество фильмов из LocalStorage
     options.totalItems = localStorage.movies;
+    // hidePaginationBtns();
     //собственно рисует интерфейс пагинации
     const pagination = new Pagination('pagination', options);
     //возвращает на первую страницу
@@ -80,13 +86,12 @@ export function paginationSearchFilms() {
 // export function hidePaginationBtns() {
 //   if (options.totalItems <= 20) {
 //     paginationContainer.classList.add('is-hidden');
-//   } 
+//   }
 // }
 
 // export function showPaginationBtns() {
-//   if (options.totalItems > 20) {
-//     paginationContainer.classList.remove('is-hidden');
-//   } 
+//   console.log(options.totalItems);
+//   paginationContainer.classList.remove('is-hidden');
 // }
 
 // export function hidePaginationBtns() {
