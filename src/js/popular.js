@@ -29,6 +29,8 @@ buttonHome.addEventListener('click', () => {
     btnQueueInHeader.classList.remove('current');
   btnWatchedInHeader.classList.remove('current');
   // for modal up
+  
+    paginationPopularFilms();
 
 
 })
@@ -43,14 +45,18 @@ logoLink.addEventListener('click', () => {
 
       btnQueueInHeader.classList.remove('current');
   btnWatchedInHeader.classList.remove('current');
+  paginationPopularFilms();
  })
 
  
 function showPopularFilm(queryParams) {
     changeMainThemeHeader();
     getFilms(queryParams).then(films => {
+        
         const totalResult = films.results;
         const pages = films.total_pages;
+        const popularMovies = films.total_results;
+        localStorage.setItem('popularMovies', popularMovies);
         console.log(pages, `всего страниц для пагинации`)
         appendGalleryMarkup(totalResult)
  }).catch(error => console.log(error))

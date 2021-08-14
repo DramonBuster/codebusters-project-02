@@ -36,13 +36,15 @@ export const options = {
 //функция для пагинации популярных фильмов
 export function paginationPopularFilms() {
   //собственно рисует интерфейс пагинации
+  options.totalItems = localStorage.popularMovies;
+  console.log('Options Popular', options.totalItems);
   const pagination = new Pagination('pagination', options);
   //переход по страницам
   pagination.on('afterMove', (event) => {
       //номер страницы, на которую нажали
       const currentPage = event.page;
       let page = currentPage;
-      console.log(currentPage);
+      console.log('Для переключения страниц пагинации', page);
       let queryParams = `trending/movie/week?api_key=27c4b211807350ab60580c41abf1bb8c&page=${page}`;
       getFilms(queryParams)
           .then(films => {
@@ -76,6 +78,58 @@ export function paginationSearchFilms() {
               appendGalleryMarkup(totalResult)
               })
           .catch(error => console.log(error));
+  }); 
+};
+
+//функция для пагинации фильмов по библиотеке
+export function paginationLibraryFilms(savedQueueFilmsInLocalStorage) {
+  console.log('savedQueueFilmsInLocalStorage', savedQueueFilmsInLocalStorage);
+  //проверка локалСторадж на правильное слово инпута
+  console.log("количество фильмов в локале", JSON.parse(localStorage.queue).length)
+  //в параметры пагинации вносим количество фильмов из LocalStorage
+  const queueA = JSON.parse(localStorage.queue);
+
+  options.totalItems = JSON.parse(localStorage.queue).length;
+
+  // if (queueA.length > options.itemsPerPage) {
+  //   const a = queueA.slice(0, 20);
+  //   a.page = 1;
+  //   console.log(a);
+  //   appendGalleryMarkup(a);
+  // }
+
+  console.log('itemsPerPage', options.itemsPerPage);
+  const queueArray = JSON.parse(localStorage.queue);
+
+  // options.itemsPerPage
+  console.log(options.itemsPerPage);
+
+  // if(options.totalItems < queueLength) {
+  //   page += 1
+  // }
+  //собственно рисует интерфейс пагинации
+  const pagination = new Pagination('pagination', options);
+  //возвращает на первую страницу
+  pagination.movePageTo(1);
+  //переход по страницам
+  pagination.on('afterMove', (event) => {
+      const currentPage = event;
+      console.log('Проверка', currentPage);
+      
+      let str = currentPage;
+      let slovo = localStorage.input;
+      console.log("slovo", slovo);
+      const queue = JSON.parse(localStorage.queue);
+      console.log('Local Queue', queue);
+      console.log('GHBDTN');
+  
+      // let queryParams = `search/movie?api_key=27c4b211807350ab60580c41abf1bb8c&language=en-US&page=${str}&include_adult=false&query=${slovo}`;
+      // getFilms(queryParams)
+      //     .then(films => {
+      //         const totalResult = films.results;
+      //         appendGalleryMarkup(totalResult)
+      //         })
+      //     .catch(error => console.log(error));
   }); 
 };
 

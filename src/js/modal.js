@@ -1,6 +1,7 @@
 import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
 import cardForFilm from '../templates/film-card.hbs';
+import { paginationLibraryFilms } from './pagination'
 
 let btnWachedInModal;
 let btnQueueInModal;
@@ -206,6 +207,10 @@ btnMyLibrary.addEventListener('click', evt => {
   btnWatchedInHeader.addEventListener('click', onMadeWatchedGallery);
   btnQueueInHeader.addEventListener('click', onMadeQueueGallery);
   onMadeQueueGallery();
+
+
+
+  paginationLibraryFilms();
 });
 
 function onMadeWatchedGallery() {
@@ -257,14 +262,40 @@ function onMadeQueueGallery() {
   /**
    * ВРЕМЕННОЕ РЕШЕНИЕ: фильтрация картинки
    */
-  // const a = savedQueueFilmsInLocalStorage.map(film => {
-  //   film.poster_path = `https://image.tmdb.org/t/p/original${film.poster_path}`;
 
-  //   console.log(film, `gjhvjhv`);
-  // });
-  // console.log(a, `wowwo`);
+  
+  // const pageOne = [];
+  // let pageTwo = [];
+
+  // const b = savedQueueFilmsInLocalStorage.map(film => {
+  //   if (pageOne.length <= 20) {
+  //     // const a = savedQueueFilmsInLocalStorage.slice(0, 20);
+  //     // a.page = 1;
+  //     // console.log('Модалка', a);
+  //     // cardList.innerHTML = cardForFilm(a);
+  //     pageTwo.push(film);
+  //   }
+  // })
+  // console.log('Больше чем 20', pageOne);
+
+
+  
+
+  //  if (savedQueueFilmsInLocalStorage.length > 20) {
+  //   const a = savedQueueFilmsInLocalStorage.slice(0, 20);
+  //   a.page = 1;
+  //   console.log('Модалка', a);
+  //   cardList.innerHTML = cardForFilm(a);
+  // }
   /**\
    * КОНЕЦ ВРЕМЕННОГО РЕШЕНИЯ
    */
+  //  cardList.innerHTML = cardForFilm(a);
+  paginationLibraryFilms(savedQueueFilmsInLocalStorage);
   cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
 }
+
+
+
+
+
