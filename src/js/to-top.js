@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollTo(0, 700);
     }
 });
-// console.log(`HELLO`)
+console.log(`HELLO`)
 // window.onload = () => {
 //     window.onscroll = function(e) {
 //         let winY  = window.scrollY;
