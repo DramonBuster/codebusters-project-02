@@ -4,6 +4,7 @@ import cardForFilm from '../templates/film-card.hbs';
 
 let btnWachedInModal;
 let btnQueueInModal;
+let openedFilm;
 
 const cards = document.querySelector('.film-card__list');
 const backdrop = document.querySelector('.backdrop');
@@ -42,7 +43,7 @@ function onModalOpen(evt) {
     if (!evt.target.classList.contains('backdrop')) {
       return;
     }
-    onModalClose(evt);
+    onModalClose();
   });
 
   window.addEventListener('keydown', evt => {
@@ -58,12 +59,13 @@ function onGetFilm(evt) {
     .catch(error => console.log(error, 'ошибка!!!  что-то не так с запросом'));
 }
 
-function onModalMakeCard(openedFilm) {
+function onModalMakeCard(film) {
+  openedFilm = film;
   openedFilm.genres = openedFilm.genres.map(genre => genre.name).join(', ');
 
   const modalCard = modalFilm(openedFilm);
 
-  modal.insertAdjacentHTML('afterbegin', modalCard);
+  modal.innerHTML = modalCard;
 
   btnWachedInModal = document.querySelector('.watched');
   btnQueueInModal = document.querySelector('.queue');
@@ -87,18 +89,36 @@ function onModalMakeCard(openedFilm) {
 }
 
 function onCheckLocalStorage(openedFilm) {
+  console.log('проверка фильма!!!');
   if (
-    localStorage.length === 0 ||
-    localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]' ||
-    localStorage.getItem(LOCALSTORAGE_QUEUE) === '[]'
+    !btnWatchedInHeader.classList.contains('current') ||
+    !btnQueueInHeader.classList.contains('current')
   ) {
-    return;
+    if (
+      localStorage.length === 0 ||
+      (localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]' &&
+        localStorage.getItem(LOCALSTORAGE_QUEUE) === '[]')
+    ) {
+      return;
+    } else {
+      console.log('ищем фильм для смены кнопок!!!');
+      onSearchFilmInLocalStorageToChangeButtons(openedFilm);
+    }
+  } else {
+    if (
+      localStorage.getItem(LOCALSTORAGE_WATCHED) !== '[]' ||
+      localStorage.getItem(LOCALSTORAGE_QUEUE) !== '[]'
+    ) {
+      console.log(localStorage.getItem(LOCALSTORAGE_QUEUE));
+      onSearchFilmInLocalStorageToChangeButtons(openedFilm);
+    } else {
+      cardList.innerHTML = '';
+      console.log('ОШИБКА ТУТааааааааааааааааааааааа!!!!!!!!!!!!!!!!');
+    }
   }
-
-  onSearchFilmInLocalStorageForChangeButtons(openedFilm);
 }
 
-function onSearchFilmInLocalStorageForChangeButtons(openedFilm) {
+function onSearchFilmInLocalStorageToChangeButtons(openedFilm) {
   const savedWachedFilms = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
   const savedQueueFilms = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
@@ -181,11 +201,13 @@ function onAddRemoveQueueToLocalStorage(evt, openedFilm) {
 
 function onModalClose(evt) {
   if (btnQueueInHeader.classList.contains('current')) {
-    onMadeQueueGallery();
-    console.log('НАХОЖУСЬ в либе КУКУ и пытаюсь поменять карточки');
+    if (btnQueueInModal.dataset.action === 'add') {
+      onMadeQueueGallery();
+    }
   } else if (btnWatchedInHeader.classList.contains('current')) {
-    onMadeWatchedGallery();
-    console.log('НАХОЖУСь в либе ВОТЧД и карточки меняю!!');
+    if (btnWachedInModal.dataset.action === 'add') {
+      onMadeWatchedGallery();
+    }
   }
 
   backdrop.classList.add('is-hidden');
@@ -199,8 +221,6 @@ btnMyLibrary.addEventListener('click', evt => {
   // По нажатию кнопки МАЙ ЛИБ скрываем или открываем нужные элементы хедера
   libButtons.classList.remove('is-hidden');
   form.classList.add('is-hidden');
-
-  // const queueFilmsFromLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE));
 
   // Вешаем слушателей на кнопки и запускаем функцию отрисовки новой галереи
   btnWatchedInHeader.addEventListener('click', onMadeWatchedGallery);
@@ -217,13 +237,9 @@ function onMadeWatchedGallery() {
     localStorage.getItem(LOCALSTORAGE_WATCHED) === null ||
     JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED) === '[]')
   ) {
-    // Нужно добавить красивое сообщение
-    console.log('БИБЛИОТЕКА ВАТЧД ПУСТКАЯ!! НУЖНО ВЫБРАТЬ ФИЛЬМЫ');
     return;
   }
 
-  console.log('отрисовываем ЛИБ ВОТЧД');
-  // cardList.innerHTML = '';
   const savedWatchedFilmsInLocalStorage = JSON.parse(localStorage.getItem(LOCALSTORAGE_WATCHED));
 
   /**
@@ -248,8 +264,6 @@ function onMadeQueueGallery() {
     localStorage.getItem(LOCALSTORAGE_QUEUE) === null ||
     JSON.parse(localStorage.getItem(LOCALSTORAGE_QUEUE) === '[]')
   ) {
-    // Нужно добавить красивое сообщение
-    console.log('БИБЛИОТЕКА КУКУ ПУСТКАЯ!! НУЖНО ВЫБРАТЬ ФИЛЬМЫ');
     return;
   }
 
