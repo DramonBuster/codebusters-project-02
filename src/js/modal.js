@@ -291,7 +291,7 @@ function onMadeQueueGallery() {
    * КОНЕЦ ВРЕМЕННОГО РЕШЕНИЯ
    */
   //  cardList.innerHTML = cardForFilm(a);
-  paginationLibraryFilms(savedQueueFilmsInLocalStorage);
+  // paginationLibraryFilms(savedQueueFilmsInLocalStorage);
   cardList.innerHTML = cardForFilm(savedQueueFilmsInLocalStorage);
 }
 

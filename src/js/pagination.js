@@ -89,7 +89,10 @@ export function paginationLibraryFilms(savedQueueFilmsInLocalStorage) {
   //в параметры пагинации вносим количество фильмов из LocalStorage
   const queueA = JSON.parse(localStorage.queue);
 
-  options.totalItems = JSON.parse(localStorage.queue).length;
+
+  // ВЫЧИСЛЯЕТ ЗАВИСИМОСТЬ СТРАНИЦ ОТ КАРТОЧЕК
+  // options.totalItems = JSON.parse(localStorage.queue).length;
+  options.totalItems = 1;
 
   // if (queueA.length > options.itemsPerPage) {
   //   const a = queueA.slice(0, 20);
