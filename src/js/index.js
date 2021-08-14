@@ -11,3 +11,4 @@ import './fetch-query';
 import './modal';
 import './add-to';
 import './load-spinner';
+import './to-top';
