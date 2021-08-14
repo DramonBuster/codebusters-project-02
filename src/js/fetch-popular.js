@@ -1,5 +1,6 @@
 import axios from "axios";
 //import "regenerator-runtime";
+
     
 const BASE_URL = "https://api.themoviedb.org/3/";
 axios.defaults.baseURL = BASE_URL;

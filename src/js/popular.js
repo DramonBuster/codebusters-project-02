@@ -1,12 +1,11 @@
 //FT-07 Реализовать подгрузку популярных фильмов на главную (первую) страницу
-import { options, paginationPopularFilms } from './pagination'
+import { paginationPopularFilms } from './pagination'
 import getFilms from './fetch-popular'
 // import AxiosApi from './fetch-popular'
 import gallery from '../templates/film-card.hbs'
 import genres from './genres.json'
 import appendGalleryMarkup from './drow-marckup'
 import { btnWatchedInHeader, btnQueueInHeader } from './modal.js';
-// import { showPaginationBtns } from './pagination'
 
 
 const logoLink = document.querySelector('.logo__link')
@@ -21,7 +20,6 @@ const btnHome = document.querySelector('.home');
 
 //слушатель на кнопке
 buttonHome.addEventListener('click', () => {
-    // showPaginationBtns();
         headerImg.classList.remove('library-header')
     headerImg.classList.add('page-header')
     buttonsLibrary.classList.add('is-hidden');
@@ -36,7 +34,6 @@ buttonHome.addEventListener('click', () => {
 })
  //слушатель на ссылке
 logoLink.addEventListener('click', () => {
-    // showPaginationBtns();
     headerImg.classList.remove('library-header')
     headerImg.classList.add('page-header')
      buttonsLibrary.classList.add('is-hidden');
@@ -51,18 +48,17 @@ logoLink.addEventListener('click', () => {
  
 function showPopularFilm(queryParams) {
     changeMainThemeHeader();
-    getFilms(queryParams).then(films => {
-        const totalResult = films.results;
-        const pages = films.total_pages;
-        console.log(pages, `всего страниц для пагинации`)
-        appendGalleryMarkup(totalResult)
- }).catch(error => console.log(error))
-// showPaginationBtns();
+    getFilms(queryParams).then(films => {
+        const totalResult = films.results;
+        const pages = films.total_pages;
+        console.log(pages, `всего страниц для пагинации`)
+        appendGalleryMarkup(totalResult)
+ }).catch(error => console.log(error))
 }
 
 setTimeout(() => {
     paginationPopularFilms();
-    // showPaginationBtns();
+    
 },300);
 
 function changeMainThemeHeader() {
@@ -77,6 +73,7 @@ function changeMainThemeHeader() {
 
 showPopularFilm(queryParams);
 //запускаем пагинацию страницы
+
 
 
 
