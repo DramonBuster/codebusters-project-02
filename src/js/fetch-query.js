@@ -1,6 +1,6 @@
 import getFilms from './fetch-popular';
 import appendGalleryMarkup from './drow-marckup';
-import { paginationSearchFilms } from './pagination'
+import { paginationSearchFilms } from './pagination';
 
 const form = document.querySelector('.form');
 // const input = document.querySelector('.form__input');
@@ -18,7 +18,7 @@ function serchFilms(e) {
   getFilms(queryParams)
     .then(films => {
       if (films.results.length === 0) {
-        notification.classList.remove('is-hidden');
+        notification.classList.remove('is-hidden');        
         return;
       }
       const movies = films.total_results;
