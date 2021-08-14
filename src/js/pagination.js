@@ -28,9 +28,11 @@ export const options = {
         '</a>'
     }
 };
+
 //функция для пагинации популярных фильмов
 export function paginationPopularFilms() {
     //собственно рисует интерфейс пагинации
+    options.totalItems = localStorage.popularMovies;
     const pagination = new Pagination('pagination', options);
     //переход по страницам
     pagination.on('afterMove', (event) => {
@@ -48,6 +50,7 @@ export function paginationPopularFilms() {
             .catch(error => console.log(error));
     })
 };
+
 //функция для пагинации фильмов по запросу
 export function paginationSearchFilms() {
     //проверка локалСторадж на правильное слово инпута
@@ -72,4 +75,45 @@ export function paginationSearchFilms() {
                 })
             .catch(error => console.log(error));
     }); 
+};
+
+
+//функция для пагинации фильмов по библиотеке
+export function paginationLibraryFilms(savedQueueFilmsInLocalStorage) {
+  console.log('savedQueueFilmsInLocalStorage', savedQueueFilmsInLocalStorage);
+  //проверка локалСторадж на правильное слово инпута
+  console.log("количество фильмов в локале", JSON.parse(localStorage.queue).length)
+  //в параметры пагинации вносим количество фильмов из LocalStorage
+  // const queueA = JSON.parse(localStorage.queue);
+
+
+  // ВЫЧИСЛЯЕТ ЗАВИСИМОСТЬ СТРАНИЦ ОТ КАРТОЧЕК
+  // options.totalItems = JSON.parse(localStorage.queue).length;
+  options.totalItems = 1;
+
+  // if (queueA.length > options.itemsPerPage) {
+  //   const a = queueA.slice(0, 20);
+  //   a.page = 1;
+  //   console.log(a);
+  //   appendGalleryMarkup(a);
+  // }
+
+  // console.log('itemsPerPage', options.itemsPerPage);
+  // const queueArray = JSON.parse(localStorage.queue);
+
+  // options.itemsPerPage
+  // console.log(options.itemsPerPage);
+
+  // if(options.totalItems < queueLength) {
+  //   page += 1
+  // }
+  //собственно рисует интерфейс пагинации
+  const pagination = new Pagination('pagination', options);
+  //возвращает на первую страницу
+  pagination.movePageTo(1);
+  //переход по страницам
+  pagination.on('afterMove', (event) => {
+      const currentPage = event;
+      const queue = JSON.parse(localStorage.queue);
+  }); 
 };

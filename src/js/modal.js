@@ -2,6 +2,7 @@ import getFilms from './fetch-popular';
 import modalFilm from '../templates/modal.hbs';
 import appendGalleryMarkup from './drow-marckup'
 // import cardForFilm from '../templates/film-card.hbs';
+import { paginationLibraryFilms } from './pagination';
 
 let btnWachedInModal;
 let btnQueueInModal;
@@ -227,6 +228,9 @@ btnMyLibrary.addEventListener('click', evt => {
   btnWatchedInHeader.addEventListener('click', onMadeWatchedGallery);
   btnQueueInHeader.addEventListener('click', onMadeQueueGallery);
   onMadeQueueGallery();
+
+  // Добавляет пагинацию
+  paginationLibraryFilms();
 });
 
 function onMadeWatchedGallery() {

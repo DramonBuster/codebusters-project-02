@@ -42,16 +42,21 @@ logoLink.addEventListener('click', () => {
   btnWatchedInHeader.classList.remove('current');
 });
 
-function showPopularFilm(queryParams) {
+export function showPopularFilm(queryParams) {
   changeMainThemeHeader();
   getFilms(queryParams)
     .then(films => {
       const totalResult = films.results;
       const pages = films.total_pages;
+      const popularMovies = films.total_results;
+      localStorage.setItem('popularMovies', popularMovies);
       //         console.log(pages, `всего страниц для пагинации`)
       appendGalleryMarkup(totalResult);
     })
     .catch(error => console.log(error));
+    setTimeout(() => {
+      paginationPopularFilms();
+    }, 300);
 }
 
 setTimeout(() => {
