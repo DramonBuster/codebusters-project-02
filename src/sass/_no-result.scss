@@ -1,0 +1,28 @@
+.no-result__text {
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.172;
+
+    @media screen and (min-width: 768px) {
+        font-size: 20px;
+    }
+
+    @media screen and (min-width: 1024px) {
+        font-size: 30px;
+    }
+}
+
+.no-result__link {
+    color: #ff6b08;;
+}
+
+.no-result__image {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
