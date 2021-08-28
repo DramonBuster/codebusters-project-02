@@ -28,7 +28,7 @@
      display: inline-block;
      position: relative;
      width: 40px;
-     padding: 13px 13px 11px 13px;
+     padding: 13px 0 11px 0;
      margin-left: 0;
      color: #000000;
      font-size: 12px;
@@ -70,21 +70,21 @@
      margin-left: 0
  }
  
- .tui-pagination .tui-first-child, .tui-pagination .tui-prev-is-ellip {
-     /* border-left: 1px solid #ddd */
- }
+//  .tui-pagination .tui-first-child, .tui-pagination .tui-prev-is-ellip {
+//      /* border-left: 1px solid #ddd */
+//  }
  
- .tui-pagination .tui-last-child, .tui-pagination .tui-next-is-ellip {
-     /* border-right: 1px solid #ddd */
- }
+//  .tui-pagination .tui-last-child, .tui-pagination .tui-next-is-ellip {
+//      /* border-right: 1px solid #ddd */
+//  }
  
- .tui-pagination .tui-first-child.tui-is-selected {
-     /* border-left: 1px solid #4b96e6 */
- }
+//  .tui-pagination .tui-first-child.tui-is-selected {
+//      /* border-left: 1px solid #4b96e6 */
+//  }
  
- .tui-pagination .tui-last-child.tui-is-selected {
-     /* border-right: 1px solid #4b96e6 */
- }
+//  .tui-pagination .tui-last-child.tui-is-selected {
+//      /* border-right: 1px solid #4b96e6 */
+//  }
  
  .tui-pagination .tui-first, .tui-pagination .tui-prev, .tui-pagination .tui-next, .tui-pagination .tui-last, .tui-pagination .tui-prev-is-ellip, .tui-pagination .tui-next-is-ellip {
      overflow: hidden;

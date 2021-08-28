@@ -34,14 +34,15 @@ a {
 .container-renat {
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 20px;
+  padding-top: 30px;
   min-width: 320px;
   width: 100vw;
+  position: relative;
   @media screen and (min-width: 320px) {
     width: 320px;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 40px;
+    padding-bottom: 140px;
   }
   @media screen and (min-width: 768px) {
     width: 768px;
@@ -50,7 +51,7 @@ a {
     padding-left: 75px;
     padding-right: 76px;
     padding-top: 60px;
-    padding-bottom: 60px;
+    padding-bottom: 137px;
   }
 
   @media screen and (min-width: 1024px) {
@@ -59,8 +60,8 @@ a {
     margin-right: auto;
     padding-left: 71px;
     padding-right: 71px;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    // padding-top: 60px;
+    // padding-bottom: 60px;
   }
 }
 
@@ -183,4 +184,106 @@ a {
 .pagination {
   margin-left: auto;
   margin-right: auto;
+}
+
+.film-card__trailler {
+  display: block;
+  height: 25px;
+  width: 25px;
+
+  background-color: #f27318d5;
+
+  // color: #ffffff;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  // min-width: 1em;
+  // min-height: 1em;
+  // width: 1em;
+  // height: 1em;
+  line-height: inherit;
+  background-position: center center;
+  background-repeat: no-repeat;
+  // color: inherit;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 1px solid rgba(29, 28, 28, 0.381);
+  background-image: url(../images/tr.svg);
+}
+.film-card__trailler:hover {
+  // box-shadow: 0 -15px 10px 0 rgba(0, 0, 0, 0.2);
+  // box-shadow: 9px 7px 0px -6px rgba(0, 0, 0, 0.25);
+  // box-shadow: 10px 10px 10px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 5px 5px 5px -5px rgba(77, 81, 84, 0.6);
+  border-radius: 50%;
+  border: 1px solid rgba(29, 28, 28, 0.598);
+  background-color: #ff6b08;
+}
+
+.film-card__trailler.no-result:hover::after {
+  content: attr(data-title); /* Выводим текст */
+  position: absolute; /* Абсолютное позиционирование */
+  left: -20%;
+  top: -50%; /* Положение подсказки */
+  z-index: 10000; /* Отображаем подсказку поверх других элементов */
+  background: rgba(255, 255, 230, 0.9); /* Полупрозрачный цвет фона */
+  font-family: Arial, sans-serif; /* Гарнитура шрифта */
+  font-size: 11px; /* Размер текста подсказки */
+  padding: 5px 10px; /* Поля */
+  border: 1px solid #333; /* Параметры рамки */
+  color: #ffffff;
+  box-shadow: 5px 5px 5px -5px rgba(77, 81, 84, 0.6);
+  border-radius: 20%;
+  // border: 1px solid rgba(29, 28, 28, 0.598);
+  background-color: #ff6b08;
+}
+// фильмы
+// .modal.parent {
+//   background-color: inherit;
+// }
+// .img {
+//   background-image: url(../images/search.jpg);
+// }
+.modal__trailer {
+  // text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+  align-items: center;
+  @media screen and (min-width: 768px) {
+    display: inline-block;
+  }
+
+  @media screen and (min-width: 1024px) {
+    // width: 854px;
+    // height: 480px;
+    // margin-top: 20px;
+  }
+}
+
+.modal__frame {
+  // display: block;
+
+  @media screen and (min-width: 320px) {
+    min-width: 280px;
+    min-height: 157px;
+  }
+  @media screen and (min-width: 768px) {
+    margin-top: 0;
+    width: 640px;
+    height: 360px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 854px;
+    height: 480px;
+    margin-top: 20px;
+  }
+}
+.film-card__trailler {
+  cursor: pointer;
 }

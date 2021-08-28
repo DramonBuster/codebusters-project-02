@@ -56,18 +56,12 @@ body.modal-open {
 .backdrop {
   position: fixed;
   top: 0;
-  // left: 0;
-
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-
   width: 100%;
   height: 100%;
 
   background-color: rgba(0, 0, 0, 0.5);
-  transition: opacity 500ms $timing-fn;
-  // overflow-y: scroll;
+  transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: scroll;
 
   z-index: 1;
 
@@ -84,7 +78,7 @@ body.modal-open {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 99;
   }
 }
 
@@ -96,30 +90,29 @@ body.modal-open {
 
 .modal {
   position: absolute;
-  z-index: 100;
+  z-index: 200;
 
-  top: 50%;
+  top: 20px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0);
 
   min-width: 280px;
-  min-height: 958px;
   padding-top: 48px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 41px;
 
-  max-height: 90vh;
-
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
 
-  //outline: green solid 1px;
-
   background-color: #fff;
+  animation: animate_modal 500ms;
 
   @media screen and (min-width: 768px) {
     display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
     padding-top: 42px;
     padding-left: 28px;
@@ -137,14 +130,10 @@ body.modal-open {
     min-height: 568px;
   }
 }
-// .modal__info {
-//   position: relative;
-//   // position: absolute;
-//   // display: flex;
-//   // flex-direction: column;
-// }
 
 .modal__thumb {
+  margin-left: auto;
+  margin-right: auto;
   margin-bottom: 30px;
   width: 240px;
   height: 357px;
@@ -162,10 +151,12 @@ body.modal-open {
     height: 478px;
   }
 }
+
+//заменил object-fit: contain чтобы не срезало часть картинки в модалке!! не менять обратно на cover
 .modal__image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 5px;
 }
 
@@ -343,20 +334,14 @@ body.modal-open {
 
   transition: color 250ms $timing-fn;
 
-  //   @media screen and (min-width: 320px) {
-  //     top: 10px;
-  //     right: 10px;
-  //     width: 30px;
-  //     height: 30px;
-  //   }
-
   &::after {
     content: '';
     position: absolute;
     top: 6px;
     right: 14px;
     width: 0px;
-    height: 18px;
+    //ровный крестик
+    height: 19px;
 
     transform: rotate(-45deg);
     border-right: 2px solid #000000;
@@ -367,14 +352,19 @@ body.modal-open {
     top: 6px;
     left: 14px;
     width: 0px;
-    height: 18px;
+    //ровный крестик
+    height: 19px;
 
     transform: rotate(45deg);
     border-right: 2px solid #000000;
   }
-
   &:hover {
-    color: #ff6b01;
+    &::before {
+      border-color: #ff6b01;
+    }
+    &::after {
+      border-color: #ff6b01;
+    }
   }
 
   /*тень кнопки закрытия при фокусе*/
@@ -396,5 +386,15 @@ body.modal-open {
     //   width: 30px;
     //   height: 30px;
     // }
+  }
+}
+
+//анимация
+@keyframes animate_modal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

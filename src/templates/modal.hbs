@@ -1,10 +1,23 @@
 <div class='modal__thumb'>
-  <img
-    class='modal__image'
-    src='https://image.tmdb.org/t/p/original{{poster_path}}'
-    alt='{{title}}'
-    data-id='{{id}}'
-  />
+
+  {{#if poster_path}}
+
+    <img
+      class='modal__image'
+      src='https://image.tmdb.org/t/p/original{{poster_path}}'
+      alt='{{title}}'
+      data-id='{{id}}'
+      loading='lazy'
+    />
+  {{else}}
+    <img
+      class='modal__image'
+      src='https://i.ibb.co/HxmtdsL/viber-2021-08-12-15-51-44-146.jpg'
+      alt='{{title}}'
+      data-id='{{id}}'
+      loading='lazy'
+    />
+  {{/if}}
 </div>
 
 <div class='modal__info'>
@@ -23,7 +36,11 @@
         {{vote_count}}</li>
       <li class='modal__item'>{{popularity}}</li>
       <li class='modal__item original_title'>{{original_title}}</li>
-      <li class='modal__item'>{{genres}}</li>
+      {{#if genres}}
+        <li class='modal__item'>{{genres}}</li>
+      {{else}}
+        <li class='modal__item'>Others</li>
+      {{/if}}
     </ul>
   </div>
 

@@ -115,6 +115,13 @@ body {
   margin-right: 10px;
   height: 13px;
   width: 14px;
+
+  animation: animate_grow 2s infinite;
+  cursor: pointer;
+
+  &:hover {
+    animation: none;
+  }
 }
 
 .footer__text--icon {
@@ -125,5 +132,21 @@ body {
 
   @media screen and (min-width: 768px) {
     margin: 0;
+  }
+}
+
+.footer__team {
+  text-decoration: underline;
+}
+//анимация сердца
+@keyframes animate_grow {
+  0% {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.2, 1.2, 1.2);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
   }
 }

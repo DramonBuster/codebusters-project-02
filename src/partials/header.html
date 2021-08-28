@@ -18,22 +18,26 @@
           type="search"
           class="form__input"
           name="searchQuery"
-          placeholder="Поиск фильмов"
+          placeholder="Movie search"
           autocomplete="off"
         />
-        <button class="serchBtn">
-          <svg class="form__icon" width="12" height="12">
-            <use href="./images/header-icons.svg#icon-search"></use>
-          </svg>
-        </button>
       </label>
+      <button class="serchBtn">
+        <svg class="form__icon" width="12" height="12">
+          <use href="./images/header-icons.svg#icon-search"></use>
+        </svg>
+      </button>
+      <div class="notification-enter is-hidden">
+        Enter the movie name and search again, please
+      </div>
+      <div class="notification is-hidden">
+        Search result not successful. Enter the correct movie name and search again
+      </div>
     </form>
-    <div class="notification is-hidden">
-      Search result not successful. Enter the correct movie name and research again
-    </div>
     <div class="library-nav is-hidden">
       <button class="library-nav__btn" data-info="watched">Watched</button>
       <button class="library-nav__btn" data-info="queue">Queue</button>
     </div>
+    <div class="filter"></div>
   </div>
 </header>

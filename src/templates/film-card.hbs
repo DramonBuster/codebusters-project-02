@@ -1,6 +1,6 @@
 
 {{#each this}}
-<li class="film-card__item">
+<li class="film-card__item" data-id="{{id}}">
     <a class="film-card__link" href="https://image.tmdb.org/t/p/original{{poster_path}}"></a><div class="thumb__card">
         {{#if poster_path}}
         <img data-id="{{id}}" class="film-card__img" src="https://image.tmdb.org/t/p/original{{poster_path}}" alt="{{title}}"
@@ -28,8 +28,11 @@
     {{else}}
     <span class="film-card__release">| N/A</span>
     {{/if}}
-      
+     <button data-movie="{{id}}" class="film-card__trailler" data-title="There are no trailers">
+    
+    </button class="film-card__btn">   
         <span class="film-card__rating is-hidden"> {{vote_average}}</span>
     </div></a>
+  
 </li>
 {{/each}}
